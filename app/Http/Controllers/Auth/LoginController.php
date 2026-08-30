@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,23 +20,33 @@ class LoginController extends Controller
             'password' => ['required'],
         ]);
 
-        if (Auth::guard('web')->attempt($credentials, $request->boolean('remember'))){
+        if (Auth::guard('web')->attempt(
+            $credentials, 
+            $request->boolean('remember')
+        )) {
             $request->session()->regenerate();
-            return redirect()->intended('/admin/dashboard');
+
+            return redirect()->intended('/admin/dashboard')
+            ->with('success', 'Login Successfully');
         }
 
-        if (Auth::guard('buyer')->attempt($credentials, $request->boolean('remember'))){
+        if (Auth::guard('buyer')->attempt(
+            $credentials, 
+            $request->boolean('remember')
+        )) {
             $request->session()->regenerate();
-            return redirect()->intended('/buyer/dashboard');
+            
+            return redirect()->intended('/buyer/dashboard')
+            ->with('success', 'Login Successfully');
         }
 
         return back()->withErrors([
             'email' => 'Email or Password is incorrect.',
         ])->onlyInput('email');
-
     }
 
-    public function logout(Request $request){
+    public function logout(Request $request)
+    {
         Auth::guard('web')->logout();
         Auth::guard('buyer')->logout();
 
