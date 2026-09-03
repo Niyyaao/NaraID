@@ -25,6 +25,9 @@ Route::group(
     //route untuk dashboard admin
     Route::get('/', [App\Http\Controllers\AdminDashboardController::class, 'index']);
     Route::get('/dashboard', [App\Http\Controllers\AdminDashboardController::class, 'index'])->name('dashboard');
+
+    //route halaman admin
+    Route::resource('/admin', App\Http\Controllers\AdminController::class);
     }
     
 );

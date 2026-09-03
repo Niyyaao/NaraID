@@ -21,40 +21,40 @@
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
 
-    <!-- Nav Item - Charts -->
-    <li class="nav-item">
+    <!-- Nav Item - Album List -->
+    <li class="nav-item active">
         <a class="nav-link" href="">
-            <i class="fas fa-fw fa-chart-area"></i>
+            <i class="fas fa-fw fa-compact-disc"></i>
             <span>Album List</span></a>
     </li>
 
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
 
-    <!-- Nav Item - Tables -->
-    <li class="nav-item">
+    <!-- Nav Item - Order List -->
+    <li class="nav-item active">
         <a class="nav-link" href="">
-            <i class="fas fa-fw fa-table"></i>
+            <i class="fas fa-fw fa-shopping-cart"></i>
             <span>Order List</span></a>
     </li>
 
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
 
-    <!-- Nav Item - Charts -->
-    <li class="nav-item">
+    <!-- Nav Item - Buyer List -->
+    <li class="nav-item active">
         <a class="nav-link" href="">
-            <i class="fas fa-fw fa-chart-area"></i>
+            <i class="fas fa-fw fa-users"></i>
             <span>Buyer List</span></a>
     </li>
 
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
 
-    <!-- Nav Item - Tables -->
-    <li class="nav-item">
-        <a class="nav-link" href="">
-            <i class="fas fa-fw fa-table"></i>
+    <!-- Nav Item - Admin -->
+    <li class="nav-item active">
+        <a class="nav-link" href="{{ route('admin.admin.index') }}">
+            <i class="fas fa-fw fa-users-cog"></i>
             <span>Admin </span></a>
     </li>
 

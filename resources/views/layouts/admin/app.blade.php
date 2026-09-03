@@ -11,12 +11,7 @@
 
     <title>@yield('title')</title>
 
-    @vite([
-    'resources/sass/app.scss',
-    'resources/css/main.css',
-    'resources/js/main.js',
-    'resources/js/app.js'
-    ])
+    @vite(['resources/sass/app.scss', 'resources/css/main.css', 'resources/js/main.js', 'resources/js/app.js'])
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -26,6 +21,156 @@
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
+
+    <style>
+        /* ADMIN DETAIL */
+
+        .admin-page-title {
+            color: var(--heading-color);
+        }
+
+        .admin-card {
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+        }
+
+        .admin-detailcard {
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            max-width: 600px;
+        }
+
+        .admin-detail-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .admin-detail-row label {
+            width: 200px;
+            margin-bottom: 0;
+            color: var(--default-color);
+            font-weight: 500;
+        }
+
+        .admin-detail-row input {
+            width: 300px;
+            padding: 6px 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            background-color: #FFFFFF;
+            color: var(--default-color);
+        }
+
+        .admin-detail-row input[readonly] {
+            border: none;
+            background-color: transparent;
+            padding: 6px 0;
+            color: var(--default-color);
+        }
+
+        .admin-detail-row input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        .admin-detail-row input[readonly]:focus {
+            border-color: transparent;
+        }
+
+
+        /* Button */
+
+        .admin-detail-actions {
+            display: flex;
+            gap: 18px;
+            margin-top: 20px;
+        }
+
+        .admin-detail-actions .btn-primary {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+
+        .admin-detail-actions .btn-primary:hover {
+            background-color: #405B6C;
+            border-color: #405B6C;
+        }
+
+        .admin-detail-actions .btn-danger {
+            background-color: #B85C5C;
+            border-color: #B85C5C;
+        }
+
+        .admin-page-title {
+            color: var(--heading-color);
+        }
+
+        .admin-card {
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+        }
+
+        .admin-card .card-header {
+            background-color: var(--surface-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .admin-card .card-title {
+            color: var(--heading-color);
+        }
+
+        .admin-card .table {
+            color: var(--default-color);
+        }
+
+        .admin-card .table thead th {
+            color: var(--heading-color);
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .admin-card .table td {
+            border-color: var(--border-color);
+        }
+
+        .admin-action {
+            text-decoration: none;
+        }
+
+        .admin-action-view {
+            color: var(--accent-color);
+        }
+
+        .admin-action-edit {
+            color: #526F82;
+        }
+
+        .admin-action-delete {
+            color: #B85C5C;
+        }
+
+        .admin-action:hover {
+            opacity: 0.75;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+
+        .btn-primary:hover {
+            background-color: #405B6C;
+            border-color: #405B6C;
+        }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    @stack('styles')
+
+    <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
 
 </head>
 
@@ -108,6 +253,8 @@
     <!-- Page level custom scripts -->
     <script src="{{ asset('js/demo/chart-area-demo.js') }}"></script>
     <script src="{{ asset('js/demo/chart-pie-demo.js') }}"></script>
+
+    @stack('scripts')
 
 </body>
 
