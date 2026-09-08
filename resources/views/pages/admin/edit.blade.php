@@ -9,46 +9,62 @@
 
     <div class="row">
         <div class="col-md-6">
-            <div class="admin-card">
+            <div class="admin-form-card">
                 <form action="{{ route('admin.admin.update', encrypt($user->id)) }}" method="POST">
                     @csrf
                     @method('PUT')
 
                     <div class="card-body">
-                        <div class="form-group mb-3">
+                        <div class="admin-form-group">
+                            <label for="id" class="form-label">ID</label>
+
+                            <div class="admin-form-input">
+                                <input type="text" id="id" value="{{ $user->id }}" class="form-control"
+                                    style="border: none; background-color: transparent;" readonly>
+                            </div>
+                        </div>
+                        <div class="admin-form-group">
                             <label for="name" class="form-label">Name</label>
-                            <input type="text" name="name" id="name" value="{{ old('name', $user->name) }}"
-                                class="form-control @error('name') is-invalid @enderror">
+                            <div class="admin-form-input">
+                                <input type="text" name="name" id="name" value="{{ old('name', $user->name) }}"
+                                    class="form-control @error('name') is-invalid @enderror">
 
-                            @error('name')
-                                <div class="invalid-feedback d-block">
-                                    <span>{{ $message }}</span>
-                                </div>
-                            @enderror
+                                @error('name')
+                                    <div class="invalid-feedback d-block">
+                                        <span>{{ $message }}</span>
+                                    </div>
+                                @enderror
+                            </div>
                         </div>
-                        <div class="form-group mb-3">
+                        <div class="admin-form-group">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" name="email" id="email" value="{{ old('email', $user->email) }}"
-                                class="form-control @error('email') is-invalid @enderror">
+                            <div class="admin-form-input">
+                                <input type="email" name="email" id="email" value="{{ old('email', $user->email) }}"
+                                    class="form-control @error('email') is-invalid @enderror">
 
-                            @error('email')
-                                <div class="invalid-feedback d-block">
-                                    <span>{{ $message }}</span>
-                                </div>
-                            @enderror
+                                @error('email')
+                                    <div class="invalid-feedback d-block">
+                                        <span>{{ $message }}</span>
+                                    </div>
+                                @enderror
+                            </div>
                         </div>
-                        <div class="form-group mb-3">
+                        <div class="admin-form-group">
                             <label for="password" class="form-label">Password</label>
-                            <input type="password" name="password" id="password"
-                                class="form-control @error('password') is-invalid @enderror">
+                            <div class="admin-form-input">
+                                <input type="password" name="password" id="password"
+                                    class="form-control @error('password') is-invalid @enderror">
+                            </div>
                         </div>
-                        <div class="form-group mb-3">
+                        <div class="admin-form-group">
                             <label for="password_confirmation" class="form-label">Confirm Password</label>
-                            <input type="password" name="password_confirmation" id="password_confirmation"
-                                class="form-control">
+                            <div class="admin-form-input">
+                                <input type="password" name="password_confirmation" id="password_confirmation"
+                                    class="form-control">
+                            </div>
                         </div>
                     </div>
-                    <div class="card-footer">
+                    <div class="admin-actions px-4 pt-2 pb-3">
                         <button type="submit" class="btn btn-primary">
                             <span class="fa fa-save"></span>
                             Update
@@ -62,6 +78,6 @@
             </div>
         </div>
     </div>
-<hr>
+    <hr>
 
 @endsection

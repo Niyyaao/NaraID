@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+use function Pest\Laravel\get;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -26,8 +28,15 @@ Route::group(
     Route::get('/', [App\Http\Controllers\AdminDashboardController::class, 'index']);
     Route::get('/dashboard', [App\Http\Controllers\AdminDashboardController::class, 'index'])->name('dashboard');
 
+    // route halaman profile
+    Route::get('/profile', [App\Http\Controllers\Admin\ProfileController::class, 'index'])->name('profile');
+    Route::post('/profile', [App\Http\Controllers\Admin\ProfileController::class, 'save'])->name('profile.save');
+
     //route halaman admin
     Route::resource('/admin', App\Http\Controllers\AdminController::class);
+
+    // route halaman album
+    Route::resource('/album', App\Http\Controllers\AlbumController::class);
     }
     
 );

@@ -8,7 +8,7 @@
         <h1 class="h3 mb-0 admin-page-title">ADMIN DETAIL</h1>
     </div>
 
-    <div class="admin-detailcard">
+    <div class="admin-detail-card">
         <div class="card-body">
 
             <div class="admin-detail-row">
@@ -37,7 +37,7 @@
             </div>
 
             
-            <div class="admin-detail-actions">
+            <div class="admin-actions">
 
                 <a href="{{ route('admin.admin.edit', encrypt($user->id)) }}"
                     class="btn btn-primary">
@@ -68,4 +68,5 @@
         @method('DELETE')
     </form>
 
+    <hr>
 @endsection

@@ -23,29 +23,95 @@
     <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
 
     <style>
-        /* ADMIN DETAIL */
-
+        /* admin page */
         .admin-page-title {
             color: var(--heading-color);
         }
 
+        /* card */
         .admin-card {
+            background-color: var(--surface-color);
+            border:  1px solid var(--border-color);
+            border-radius: 8px;
+        }
+
+        .admin-card .table {
+            color: var(--default-color);
+        }
+
+        .admin-card .table thead th {
+            color: var(--heading-color);
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .admin-card .table td {
+            border-color: var(--border-color)
+        }
+
+        /* form */
+        .admin-form-card {
+            width: 600px;
+            padding: 20px;
             background-color: var(--surface-color);
             border: 1px solid var(--border-color);
             border-radius: 8px;
         }
 
-        .admin-detailcard {
-            background-color: var(--surface-color);
+        .admin-form-group {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .admin-form-group label {
+            width: 180px;
+            margin-top: 7px;
+            margin-bottom: 0;
+            color: var(--default-color);
+            font-weight: 500;
+            flex-shrink: 0;
+        }
+
+        .admin-form-input {
+            width: 350px;
+        }
+
+        .admin-form-input input,
+        .admin-form-input textarea {
+            width: 100%;
+            padding: 5px 8px;
             border: 1px solid var(--border-color);
-            border-radius: 8px;
-            max-width: 600px;
+            border-radius: 4px;
+            background-color: #FFFFFF;
+            color: var(--default-color);
+        }
+
+        .admin-form-input textarea {
+            height: 60px;
+            resize: none;
+        }
+
+        .admin-form-input input:focus,
+        .admin-form-input textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        .admin-form-input input[type="file"] {
+            width: 100%;
+        }
+
+        /* detail */
+
+        .admin-detail-card {
+            max-width: 700px;
+            background-color: transparent;
         }
 
         .admin-detail-row {
             display: flex;
             align-items: center;
-            margin-bottom: 16px;
+            margin-bottom: 1rem;
         }
 
         .admin-detail-row label {
@@ -53,6 +119,7 @@
             margin-bottom: 0;
             color: var(--default-color);
             font-weight: 500;
+            flex-shrink: 0;
         }
 
         .admin-detail-row input {
@@ -71,69 +138,30 @@
             color: var(--default-color);
         }
 
-        .admin-detail-row input:focus {
-            outline: none;
-            border-color: var(--accent-color);
-        }
+        /* button */
 
-        .admin-detail-row input[readonly]:focus {
-            border-color: transparent;
-        }
-
-
-        /* Button */
-
-        .admin-detail-actions {
+        .admin-actions {
             display: flex;
             gap: 18px;
-            margin-top: 20px;
+            margin-top: 12px;
         }
 
-        .admin-detail-actions .btn-primary {
+        .admin-actions .btn-primary {
             background-color: var(--accent-color);
             border-color: var(--accent-color);
         }
 
-        .admin-detail-actions .btn-primary:hover {
+        .admin-actions .btn-primary:hover {
             background-color: #405B6C;
             border-color: #405B6C;
         }
 
-        .admin-detail-actions .btn-danger {
+        .admin-action .btn-danger {
             background-color: #B85C5C;
             border-color: #B85C5C;
         }
 
-        .admin-page-title {
-            color: var(--heading-color);
-        }
-
-        .admin-card {
-            background-color: var(--surface-color);
-            border: 1px solid var(--border-color);
-        }
-
-        .admin-card .card-header {
-            background-color: var(--surface-color);
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .admin-card .card-title {
-            color: var(--heading-color);
-        }
-
-        .admin-card .table {
-            color: var(--default-color);
-        }
-
-        .admin-card .table thead th {
-            color: var(--heading-color);
-            border-bottom: 2px solid var(--border-color);
-        }
-
-        .admin-card .table td {
-            border-color: var(--border-color);
-        }
+        /* table action */
 
         .admin-action {
             text-decoration: none;
@@ -144,7 +172,7 @@
         }
 
         .admin-action-edit {
-            color: #526F82;
+            color: var(--accent-color);
         }
 
         .admin-action-delete {
@@ -155,15 +183,6 @@
             opacity: 0.75;
         }
 
-        .btn-primary {
-            background-color: var(--accent-color);
-            border-color: var(--accent-color);
-        }
-
-        .btn-primary:hover {
-            background-color: #405B6C;
-            border-color: #405B6C;
-        }
     </style>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

@@ -23,7 +23,7 @@
 
     <!-- Nav Item - Album List -->
     <li class="nav-item active">
-        <a class="nav-link" href="">
+        <a class="nav-link" href="{{ route('admin.album.index') }}">
             <i class="fas fa-fw fa-compact-disc"></i>
             <span>Album List</span></a>
     </li>
