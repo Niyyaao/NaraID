@@ -37,8 +37,13 @@ Route::group(
 
     // route halaman album
     Route::resource('/album', App\Http\Controllers\AlbumController::class);
+
+    // route untuk halaman pemesanan
+    Route::resource('/order', App\Http\Controllers\OrderController::class)->except(['create', 'store']);
+
+    // route untuk halaman buyer
+    Route::resource('/buyer', App\Http\Controllers\BuyerController::class)->only(['index', 'show', 'destroy']);
     }
-    
 );
 
 //dashboard pembeli

@@ -33,7 +33,7 @@
 
     <!-- Nav Item - Order List -->
     <li class="nav-item active">
-        <a class="nav-link" href="">
+        <a class="nav-link" href="{{ route('admin.order.index') }}">
             <i class="fas fa-fw fa-shopping-cart"></i>
             <span>Order List</span></a>
     </li>
@@ -43,7 +43,7 @@
 
     <!-- Nav Item - Buyer List -->
     <li class="nav-item active">
-        <a class="nav-link" href="">
+        <a class="nav-link" href="{{ route('admin.buyer.index') }}">
             <i class="fas fa-fw fa-users"></i>
             <span>Buyer List</span></a>
     </li>

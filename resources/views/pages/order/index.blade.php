@@ -1,20 +1,11 @@
 @extends('layouts.admin.app')
 
-@section('title', 'Album Page')
+@section('title', 'Order Page - Admin Dashboard')
 
 @section('content')
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 admin-page-title">Album Data List</h1>
+        <h1 class="h3 mb-0 admin-page-title">Order Data List</h1>
     </div>
-
-    <div class="admin-actions">
-    <a href="{{ route('admin.album.create') }}" class="btn btn-primary">
-        <span class="fa fa-plus-circle"></span>
-        <span>Create New</span>
-    </a>
-    </div>
-
-    <hr>
 
     <div class="admin-card">
         <div class="card-body">
@@ -22,40 +13,43 @@
                 <thead>
                     <tr>
                         <th>NO</th>
-                        <th>IMAGE</th>
-                        <th>TITLE</th>
-                        <th>ARTIST</th>
-                        <th>PRICE</th>
-                        <th>STOCK</th>
+                        <th>BUYER</th>
+                        <th>ALBUM</th>
+                        <th>QTY</th>
+                        <th>TOTAL</th>
+                        <th>PAYMENT PROOF</th>
+                        <th>STATUS</th>
                         <th>ACTION</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($albums as $album)
+                    @foreach ($orders as $order)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
+
+                            <td>{{ $order->buyer->name }}</td>
+                            <td>{{ $order->album->title }}</td>
+                            <td>{{ number_format($order->qty, 0, ',', '.') }}</td>
+                            <td class="text-start">IDR {{ number_format($order->total, 0, ',', '.') }}</td>
                             <td>
-                                @if ($album->image)
-                                    <img src="{{ asset('storage/albums/' . $album->image) }}" width="80px" />
+                                @if ($order->payment_proof)
+                                    <img src="{{ asset('storage/orders/' . $order->payment_proof) }}" width="80px" />
                                 @else
-                                    <em class="text-muted">Empty Image</em>
+                                    <em class="text-muted">No Payment Proof Uploaded</em>
                                 @endif
                             </td>
-                            <td>{{ $album->title }}</td>
-                            <td>{{ $album->artist_name }}</td>
-                            <td class="text-start">IDR {{ number_format($album->price, 0, ',', '.') }}</td>
-                            <td>{{ number_format($album->stock, 0, ',', '.') }}</td>
+                            <td>{{ ucfirst(str_replace('_', ' ', $order->status)) }}</td>
                             <td>
-                                <a href="{{ route('admin.album.show', encrypt($album->id)) }}"
+                                <a href="{{ route('admin.order.show', encrypt($order->id)) }}"
                                     class="btn btn-link admin-action admin-action-view p-0 mx-2">
                                     <span class="fa fa-search"></span>
                                 </a>
-                                <a href="{{ route('admin.album.edit', encrypt($album->id)) }}"
+                                <a href="{{ route('admin.order.edit', encrypt($order->id)) }}"
                                     class="btn btn-link admin-action admin-action-edit p-0 mx-2">
                                     <span class="fa fa-edit"></span>
                                 </a>
                                 <a href="javascript:void()"
-                                    onclick="handleDestroy('{{ route('admin.album.destroy', encrypt($album->id)) }}')"
+                                    onclick="handleDestroy('{{ route('admin.order.destroy', encrypt($order->id)) }}')"
                                     class="btn btn-link admin-action admin-action-delete p-0 mx-2">
                                     <span class="fa fa-trash"></span>
                                 </a>
