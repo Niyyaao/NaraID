@@ -64,6 +64,7 @@
                                             'awaiting_verification' => 'Awaiting Verification',
                                             'verified' => 'Verified',
                                             'ready_for_pickup' => 'Ready for Pickup',
+                                            'finished' => 'Finished',
                                         ];
                                     @endphp
                                     @foreach ($statuses as $item => $label)

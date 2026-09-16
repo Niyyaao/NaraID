@@ -19,11 +19,12 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                Earnings (Monthly)</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                                TOTAL ADMINS</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $totaladmins }}</div>
+                            <a class="text-xs font-weight-bold mb-1" href="{{ route('admin.admin.index') }}">See All</a>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                            <i class="fas fa-fw fa-users-cog fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
@@ -37,11 +38,12 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                Earnings (Annual)</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+                                TOTAL ALBUMS</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $totalalbums }}</div>
+                            <a class="text-xs font-weight-bold mb-1" href="{{ route('admin.album.index') }}">See All</a>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                            <i class="fas fa-fw fa-compact-disc fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
@@ -54,22 +56,17 @@
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">TOTAL ORDERS
                             </div>
                             <div class="row no-gutters align-items-center">
                                 <div class="col-auto">
-                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
-                                </div>
-                                <div class="col">
-                                    <div class="progress progress-sm mr-2">
-                                        <div class="progress-bar bg-info" role="progressbar" style="width: 50%"
-                                            aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
+                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{ $totalorders }}</div>
+                                    <a class="text-xs font-weight-bold mb-1" href="{{ route('admin.order.index') }}">See All</a>
                                 </div>
                             </div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                            <i class="fas fa-fw fa-shopping-cart fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
@@ -83,11 +80,12 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                Pending Requests</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                TOTAL BUYER</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $totalbuyers }}</div>
+                            <a class="text-xs font-weight-bold mb-1" href="{{ route('admin.buyergit add.index') }}">See All</a>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                            <i class="fas fa-fw fa-users fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
@@ -104,27 +102,27 @@
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
-                    <div class="dropdown no-arrow">
-                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                            aria-labelledby="dropdownMenuLink">
-                            <div class="dropdown-header">Dropdown Header:</div>
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                    </div>
+                    <h6 class="m-0 font-weight-bold text-primary">Best-selling Album</h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                    <div class="chart-area">
-                        <canvas id="myAreaChart"></canvas>
-                    </div>
+                    <ul class="list-group list-group-flush">
+                        @forelse ($albumterlaris as $album)
+                            <li class="list-group-item d-flex align-items-center">
+                                
+                                <img src="{{ asset('storage/albums/' . $album->image) }}"
+                                    onerror="this.src='{{ asset('images/default-cover.png') }}'" class="rounded mr-3"
+                                    width="45" height="45" style="object-fit: cover;">
+                                <div class="flex-grow-1">
+                                    <div class="font-weight-bold">{{ $album->title }}</div>
+                                    <small class="text-muted">{{ $album->artist_name }}</small>
+                                </div>
+                                <span class="badge badge-success badge-pill">{{ $album->total_terjual }} sold</span>
+                            </li>
+                        @empty
+                            <li class="list-group-item text-muted">No Sales Data Yet.</li>
+                        @endforelse
+                    </ul>
                 </div>
             </div>
         </div>
@@ -134,38 +132,25 @@
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
-                    <div class="dropdown no-arrow">
-                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                            aria-labelledby="dropdownMenuLink">
-                            <div class="dropdown-header">Dropdown Header:</div>
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                    </div>
+                    <h6 class="m-0 font-weight-bold text-primary">Latest Album</h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                    <div class="chart-pie pt-4 pb-2">
-                        <canvas id="myPieChart"></canvas>
-                    </div>
-                    <div class="mt-4 text-center small">
-                        <span class="mr-2">
-                            <i class="fas fa-circle text-primary"></i> Direct
-                        </span>
-                        <span class="mr-2">
-                            <i class="fas fa-circle text-success"></i> Social
-                        </span>
-                        <span class="mr-2">
-                            <i class="fas fa-circle text-info"></i> Referral
-                        </span>
-                    </div>
+                    <ul class="list-group list-group-flush">
+                        @forelse ($albumterbaru as $album)
+                            <li class="list-group-item d-flex align-items-center">
+                                <img src="{{ asset('storage/albums/' . $album->image) }}"
+                                    onerror="this.src='{{ asset('images/default-cover.png') }}'" class="rounded mr-3"
+                                    width="45" height="45" style="object-fit:cover;">
+                                    <div class="flex-grow-1">
+                                        <div class="font-weight-bold">{{ $album->title }}</div>
+                                        <small class="text-muted">{{ $album->artist_name }} . {{ $album->release_date?->format('M Y') }}</small>
+                                    </div>
+                            </li>
+                        @empty
+                        <li class="list-group-item text-muted">No Albums Yet.</li>
+                        @endforelse
+                    </ul>
                 </div>
             </div>
         </div>

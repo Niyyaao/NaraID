@@ -60,7 +60,7 @@ class OrderController extends Controller
         $order = Order::findOrFail(decrypt($id));
 
         $request->validate([
-            'status' => 'required|in:awaiting_payment,awaiting_verification,verified,ready_for_pickup',
+            'status' => 'required|in:awaiting_payment,awaiting_verification,verified,ready_for_pickup,finished',
         ]);
 
         $order->update(['status' => $request->status]);
@@ -75,8 +75,8 @@ class OrderController extends Controller
     {
         $order = Order::findOrFail(decrypt($id));
 
-        if ($order->image && \Storage::disk('public')->exists('orders/' . $order->image)) {
-            \Storage::disk('public')->delete('orders/' . $order->image);
+        if ($order->payment_proof && \Storage::disk('public')->exists('orders/' . $order->payment_proof)) {
+            \Storage::disk('public')->delete('orders/' . $order->payment_proof);
         }
 
         $order->delete();

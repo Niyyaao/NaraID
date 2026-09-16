@@ -12,6 +12,7 @@ class Order extends Model
         'qty',
         'total',
         'status',
+        'payment_proof'
     ];
 
     public function buyer()

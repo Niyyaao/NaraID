@@ -57,6 +57,11 @@ Route::group(
     //route untuk dashboard pembeli
     Route::get('/', [App\Http\Controllers\BuyerDashboardController::class, 'index']);
     Route::get('/dashboard', [App\Http\Controllers\BuyerDashboardController::class, 'index'])->name('dashboard');
+
+    // route halaman profile
+    Route::get('/profile', [App\Http\Controllers\Buyer\ProfileController::class, 'index'])->name('profile');
+    Route::post('/profile', [App\Http\Controllers\Buyer\ProfileController::class, 'save'])->name('profile.save');
+
     }
     
 );

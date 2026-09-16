@@ -21,6 +21,13 @@
                 <input type="text" value="{{ $album->title }}" readonly>
             </div>
 
+            
+            <div class="admin-detail-row">
+                <label>Release Date</label>
+                <input type="text" value="{{  $album->release_date ? $album->release_date->format('d F Y') : 'Not Specified' }}" readonly>
+            </div>
+
+
             <div class="admin-detail-row">
                 <label>Artist</label>
                 <input type="text" value="{{ $album->artist_name }}" readonly>

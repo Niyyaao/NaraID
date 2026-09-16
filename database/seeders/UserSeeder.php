@@ -17,5 +17,7 @@ class UserSeeder extends Seeder
             'email' => 'atminnaraid@gmail.com',
             'password' => 'yayaatmin0'
         ]);
+
+        \App\Models\User::factory()->count(4)->create();
     }
 }

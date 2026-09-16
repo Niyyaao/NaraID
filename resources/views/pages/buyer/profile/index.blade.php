@@ -1,4 +1,4 @@
-@extends('layouts.admin.app')
+@extends('layouts.buyer.app')
 
 @section('title', 'Profile page')
 
@@ -15,12 +15,12 @@
     <div class="row">
         <div class="col-md-4">
             <div class="card card-body">
-                <form action="{{ route('admin.profile.save') }}" method="POST">
+                <form action="{{ route('buyer.profile.save') }}" method="POST">
                     @csrf
                     <div class="mb-3">
                         <label for="name" class="form-label">Name</label>
                         <input type="text" id="name" name="name"
-                            class="form-control @error('name') is-invalid @enderror" value="{{ $user->name }}">
+                            class="form-control @error('name') is-invalid @enderror" value="{{ $buyer->name }}">
 
                         @error('name')
                             <div class="text-danger">
@@ -31,9 +31,20 @@
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
                         <input type="email" id="email" name="email"
-                            class="form-control @error('email') is-invalid @enderror" value="{{ $user->email }}">
+                            class="form-control @error('email') is-invalid @enderror" value="{{ $buyer->email }}">
 
                         @error('email')
+                            <div class="text-danger">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label for="phone" class="form-label">phone</label>
+                        <input type="number" id="phone" name="phone"
+                            class="form-control @error('phone') is-invalid @enderror" value="{{ $buyer->phone }}">
+
+                        @error('phone')
                             <div class="text-danger">
                                 {{ $message }}
                             </div>
@@ -66,7 +77,7 @@
                             <span class="fa fa-save"></span>
                             Save
                         </button>
-                        <a href="{{ route('admin.dashboard') }}" class="btn btn-secondary">
+                        <a href="{{ route('buyer.dashboard') }}" class="btn btn-secondary">
                             <span class="fa fa-times-circle"></span>
                             Back
                         </a>

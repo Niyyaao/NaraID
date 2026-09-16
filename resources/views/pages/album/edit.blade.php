@@ -41,6 +41,21 @@
                             </div>
                         </div>
                         <div class="admin-form-group">
+                            <label for="release_date" class="form-label">Release Date</label>
+                            <div class="admin-form-input">
+
+                                <input type="date" name="release_date" id="release_date"
+                                    value="{{ old('release_date', $album->release_date?->format('Y-m-d')) }}"
+                                    class="form-control @error('release_date') is-invalid @enderror">
+
+                                @error('release_date')
+                                    <div class="invalid-feedback d-block">
+                                        <span>{{ $message }}</span>
+                                    </div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="admin-form-group">
                             <label for="artist_name" class="form-label">Artist</label>
                             <div class="admin-form-input">
 

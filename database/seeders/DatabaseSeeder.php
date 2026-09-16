@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Buyer;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -24,7 +25,10 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $this->call([
-            UserSeeder::class
+            UserSeeder::class,
+            BuyerSeeder::class,
+            AlbumSeeder::class,
+            OrderSeeder::class,
         ]);
         
     }

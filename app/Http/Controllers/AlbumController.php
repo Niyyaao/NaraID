@@ -36,7 +36,8 @@ class AlbumController extends Controller
             'artist_name' => 'required|string|max:64',
             'description' => 'nullable',
             'price' => 'required|integer|min:0',
-            'stock' => 'required|numeric|min:0'
+            'stock' => 'required|numeric|min:0',
+            'release_date' => 'nullable|date',
         ]);
 
         $image = $request->file('image');
@@ -52,6 +53,7 @@ class AlbumController extends Controller
             'description' => $request->description,
             'price' => $request->price,
             'stock' => $request->stock,
+            'release_date' => $request->release_date,
         ]);
 
         return redirect()->route('admin.album.index')->with('success', 'Album Created Successfully');
@@ -84,12 +86,13 @@ class AlbumController extends Controller
         $album = Album::findOrFail(decrypt($id));
 
         $request->validate([
-            'image' => 'required|file|mimes:jpg,jpeg,png,webp|max:2048',
+            'image' => 'nullable|file|mimes:jpg,jpeg,png,webp|max:2048',
             'title' => 'required|max:128|string',
             'artist_name' => 'required|string|max:64',
             'description' => 'nullable',
             'price' => 'required|integer|min:0',
-            'stock' => 'required|numeric|min:0'
+            'stock' => 'required|numeric|min:0',
+            'release_date' => 'nullable|date',
         ]);
 
         $album->title = $request->title;
@@ -97,6 +100,7 @@ class AlbumController extends Controller
         $album->description = $request->description;
         $album->price = $request->price;
         $album->stock = $request->stock;
+        $album->release_date = $request->release_date;
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');

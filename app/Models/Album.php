@@ -13,6 +13,11 @@ class Album extends Model
         'description',
         'price',
         'stock',
+        'release_date'
+    ];
+
+    protected $casts = [
+        'release_date' => 'date'
     ];
 
     public function orders()
