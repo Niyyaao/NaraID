@@ -82,7 +82,7 @@
                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                 TOTAL BUYER</div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $totalbuyers }}</div>
-                            <a class="text-xs font-weight-bold mb-1" href="{{ route('admin.buyergit add.index') }}">See All</a>
+                            <a class="text-xs font-weight-bold mb-1" href="{{ route('admin.buyer.index') }}">See All</a>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-fw fa-users fa-2x text-gray-300"></i>

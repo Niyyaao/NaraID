@@ -21,10 +21,11 @@
                 <input type="text" value="{{ $album->title }}" readonly>
             </div>
 
-            
+
             <div class="admin-detail-row">
                 <label>Release Date</label>
-                <input type="text" value="{{  $album->release_date ? $album->release_date->format('d F Y') : 'Not Specified' }}" readonly>
+                <input type="text"
+                    value="{{ $album->release_date ? $album->release_date->format('d F Y') : 'Not Specified' }}" readonly>
             </div>
 
 
@@ -75,11 +76,12 @@
                     Cancel
                 </a>
 
-                <button type="button" onclick="handleDestroy('{{ route('admin.album.destroy', encrypt($album->id)) }}')"
+                <a href="javascript:void()"
+                    onclick="handleDestroy('{{ route('admin.album.destroy', encrypt($album->id)) }}')"
                     class="btn btn-danger">
                     <span class="fa fa-trash"></span>
                     Delete
-                </button>
+                </a>
 
             </div>
 
@@ -94,3 +96,25 @@
     <hr>
 
 @endsection
+
+@push('scripts')
+    <script type="text/javascript">
+        $('.datatable').DataTable();
+
+        function handleDestroy(url) {
+            Swal.fire({
+                title: "Are you sure want to delete it?",
+                text: "You cannot recover it",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Delete",
+                cancelButtonText: "Cancel"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $('#form-destroy').attr('action', url);
+                    $('#form-destroy').submit();
+                }
+            });
+        }
+    </script>
+@endpush

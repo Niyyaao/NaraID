@@ -48,11 +48,12 @@
                     Cancel
                 </a>
 
-                <button type="button" onclick="handleDestroy('{{ route('admin.buyer.destroy', encrypt($buyer->id)) }}')"
+                <a href="javascript:void()"
+                    onclick="handleDestroy('{{ route('admin.buyer.destroy', encrypt($buyer->id)) }}')"
                     class="btn btn-danger">
                     <span class="fa fa-trash"></span>
                     Delete
-                </button>
+                </a>
 
             </div>
 
@@ -63,7 +64,26 @@
         @csrf
         @method('DELETE')
     </form>
-
-    
-
 @endsection
+
+@push('scripts')
+    <script type="text/javascript">
+        $('.datatable').DataTable();
+
+        function handleDestroy(url) {
+            Swal.fire({
+                title: "Are you sure want to delete it?",
+                text: "You cannot recover it",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Delete",
+                cancelButtonText: "Cancel"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $('#form-destroy').attr('action', url);
+                    $('#form-destroy').submit();
+                }
+            });
+        }
+    </script>
+@endpush

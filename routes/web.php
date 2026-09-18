@@ -33,16 +33,16 @@ Route::group(
     Route::post('/profile', [App\Http\Controllers\Admin\ProfileController::class, 'save'])->name('profile.save');
 
     //route halaman admin
-    Route::resource('/admin', App\Http\Controllers\AdminController::class);
+    Route::resource('/admin', App\Http\Controllers\Admin\AdminController::class);
 
     // route halaman album
-    Route::resource('/album', App\Http\Controllers\AlbumController::class);
+    Route::resource('/album', App\Http\Controllers\Admin\AlbumController::class);
 
     // route untuk halaman pemesanan
-    Route::resource('/order', App\Http\Controllers\OrderController::class)->except(['create', 'store']);
+    Route::resource('/order', App\Http\Controllers\Admin\OrderController::class)->except(['create', 'store']);
 
     // route untuk halaman buyer
-    Route::resource('/buyer', App\Http\Controllers\BuyerController::class)->only(['index', 'show', 'destroy']);
+    Route::resource('/buyer', App\Http\Controllers\Admin\BuyerController::class)->only(['index', 'show', 'destroy']);
     }
 );
 

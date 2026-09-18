@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Models\Buyer;
+use App\Http\Controllers\Controller;
 
 class BuyerController extends Controller
 {
@@ -14,7 +15,7 @@ class BuyerController extends Controller
     {
         $buyers = Buyer::all();
 
-        return view('pages.buyer.index', compact('buyers'));
+        return view('pages.admin.buyer.index', compact('buyers'));
     }
 
     /**
@@ -40,7 +41,7 @@ class BuyerController extends Controller
     {
         $buyer = Buyer::findOrFail(decrypt($id));
 
-        return view('pages.buyer.show', compact('buyer'));
+        return view('pages.admin.buyer.show', compact('buyer'));
     }
 
     /**
@@ -65,7 +66,7 @@ class BuyerController extends Controller
     public function destroy(string $id)
     {
         $buyer = Buyer::findOrFail(decrypt($id));
-        $buyer->destroy();
+        $buyer->delete();
 
         return redirect()->route('admin.buyer.index')->with('success', 'Buyer Successfully Deleted');
     }

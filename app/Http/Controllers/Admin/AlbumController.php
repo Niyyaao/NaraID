@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\Album;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class AlbumController extends Controller
 {
@@ -14,7 +15,7 @@ class AlbumController extends Controller
     public function index()
     {
         $albums = Album::all();
-        return view('pages.album.index', compact('albums'));
+        return view('pages.admin.album.index', compact('albums'));
     }
 
     /**
@@ -22,7 +23,7 @@ class AlbumController extends Controller
      */
     public function create()
     {
-        return view('pages.album.create');
+        return view('pages.admin.album.create');
     }
 
     /**
@@ -66,7 +67,7 @@ class AlbumController extends Controller
     public function show(string $id)
     {
         $album = Album::findOrFail(decrypt($id));
-        return view('pages.album.show', compact('album'));
+        return view('pages.admin.album.show', compact('album'));
     }
 
     /**
@@ -75,7 +76,7 @@ class AlbumController extends Controller
     public function edit(string $id)
     {
         $album = Album::findOrFail(decrypt($id));
-        return view('pages.album.edit', compact('album'));
+        return view('pages.admin.album.edit', compact('album'));
     }
 
     /**
@@ -123,7 +124,7 @@ class AlbumController extends Controller
     public function destroy(string $id)
     {
         $album = Album::findOrFail(decrypt($id));
-        $album->destroy();
+        $album->delete();
 
         return redirect()->route('admin.album.index')->with('success', 'Album Successfully Deleted');
     }

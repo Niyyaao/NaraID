@@ -36,28 +36,25 @@
                 <input type="text" value="{{ $user->updated_at }}" readonly>
             </div>
 
-            
+
             <div class="admin-actions">
 
-                <a href="{{ route('admin.admin.edit', encrypt($user->id)) }}"
-                    class="btn btn-primary">
+                <a href="{{ route('admin.admin.edit', encrypt($user->id)) }}" class="btn btn-primary">
                     <span class="fa fa-edit"></span>
                     Edit
                 </a>
 
-                <a href="{{ route('admin.admin.index') }}"
-                    class="btn btn-secondary">
+                <a href="{{ route('admin.admin.index') }}" class="btn btn-secondary">
                     <span class="fa fa-times-circle"></span>
                     Cancel
                 </a>
 
-                <button type="button"
+                <a href="javascript:void()"
                     onclick="handleDestroy('{{ route('admin.admin.destroy', encrypt($user->id)) }}')"
                     class="btn btn-danger">
                     <span class="fa fa-trash"></span>
                     Delete
-                </button>
-
+                </a>
             </div>
 
         </div>
@@ -70,3 +67,27 @@
 
     <hr>
 @endsection
+
+@push('scripts')
+    <script src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
+    <script type="text/javascript">
+        $('.datatable').DataTable();
+
+        function handleDestroy(url) {
+            Swal.fire({
+                title: "Are you sure want to delete it?",
+                text: "You cannot recover it",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Delete",
+                cancelButtonText: "Cancel"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $('#form-destroy').attr('action', url);
+                    $('#form-destroy').submit();
+                }
+            });
+        }
+    </script>
+@endpush

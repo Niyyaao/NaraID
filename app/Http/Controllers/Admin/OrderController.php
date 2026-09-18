@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\Order;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 
 class OrderController extends Controller
@@ -14,7 +15,7 @@ class OrderController extends Controller
     public function index()
     {
         $orders = Order::with(['buyer', 'album'])->latest()->get();
-        return view('pages.order.index', compact('orders'));
+        return view('pages.admin.order.index', compact('orders'));
     }
 
     /**
@@ -39,7 +40,7 @@ class OrderController extends Controller
     public function show(string $id)
     {
         $order = Order::with(['buyer', 'album'])->findOrFail(decrypt($id));
-        return view('pages.order.show', compact('order'));
+        return view('pages.admin.order.show', compact('order'));
     }
 
     /**
@@ -49,7 +50,7 @@ class OrderController extends Controller
     {
         $order = Order::with(['buyer', 'album'])->findOrFail(decrypt($id));
 
-        return view('pages.order.edit', compact('order'));
+        return view('pages.admin.order.edit', compact('order'));
     }
 
     /**
@@ -75,8 +76,8 @@ class OrderController extends Controller
     {
         $order = Order::findOrFail(decrypt($id));
 
-        if ($order->payment_proof && \Storage::disk('public')->exists('orders/' . $order->payment_proof)) {
-            \Storage::disk('public')->delete('orders/' . $order->payment_proof);
+        if ($order->payment_proof && Storage::disk('public')->exists('orders/' . $order->payment_proof)) {
+            Storage::disk('public')->delete('orders/' . $order->payment_proof);
         }
 
         $order->delete();
