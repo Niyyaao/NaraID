@@ -72,7 +72,7 @@
                             </div>
                         @enderror
                     </div>
-                    <div class="admin-actions justify-content-center gap-5 d-flex align-items-center">
+                    <div class="buyer-actions justify-content-center gap-5 d-flex align-items-center">
                         <button type="submit" class="btn btn-primary">
                             <span class="fa fa-save"></span>
                             Save

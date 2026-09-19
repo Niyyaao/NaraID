@@ -1,0 +1,11 @@
+/* button */
+.buyer-actions {
+    display: flex;
+    gap: 18px;
+    margin-top: 12px;
+}
+
+.buyer-actions .btn-primary {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+}
