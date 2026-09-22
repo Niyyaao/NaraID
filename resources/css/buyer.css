@@ -9,3 +9,42 @@
     background-color: var(--accent-color);
     border-color: var(--accent-color);
 }
+
+/* content (navbar&footer) */
+#content > .container-fluid {
+    padding-top: 100px;
+}
+
+html, body {
+    height: 100%;
+}
+
+#wrapper,
+#content-wrapper {
+    min-height: 100vh;
+}
+
+#content {
+    flex: 1 0 auto;
+}
+
+#footer {
+    flex-shrink: 0;
+    margin-top: 0 !important;
+}
+
+@media (max-width: 767.98px) {
+    #navbarmenu {
+        position: absolute;
+        top: 100%;
+        left: 15px;
+        right: 15px;
+
+        background: #ffffff;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+
+        z-index: 1000;
+    }
+}

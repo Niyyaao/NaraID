@@ -62,6 +62,12 @@ Route::group(
     Route::get('/profile', [App\Http\Controllers\Buyer\ProfileController::class, 'index'])->name('profile');
     Route::post('/profile', [App\Http\Controllers\Buyer\ProfileController::class, 'save'])->name('profile.save');
 
+    // route halaman album
+    Route::resource('/album', App\Http\Controllers\Buyer\AlbumController::class)->only(['index', 'show']);
+
+    // route halaman order
+    Route::resource('/order', App\Http\Controllers\Buyer\OrderController::class);
+
     }
     
 );

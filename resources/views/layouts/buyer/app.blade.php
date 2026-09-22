@@ -46,7 +46,7 @@
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                <div class="container-fluid">
+                <div class="container-fluid" style="padding-top: 100px;">
                     @yield('content')
                 </div>
                 <!-- /.container-fluid -->
@@ -69,7 +69,7 @@
         <i class="bi bi-arrow-up-short"></i>
     </a>
 
-    
+
 
     <!-- Bootstrap core JavaScript-->
     <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
