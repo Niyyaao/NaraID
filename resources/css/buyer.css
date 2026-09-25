@@ -1,3 +1,30 @@
+:root {
+
+  --default-font: "Roboto", system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  --heading-font: "Lato", sans-serif;
+  --nav-font: "Montserrat", sans-serif;
+  --background-color: #F1F4F7;
+  --default-color: #1D2935;
+  --heading-color: #172536;
+  --accent-color: #526F82;
+  --surface-color: #FFFFFF;
+  --contrast-color: #FFFFFF;
+  --border-color: #D7E0E7;
+
+  scroll-behavior: smooth;
+}
+
+.dark-background {
+  --background-color: #172536;
+  --default-color: #FFFFFF;
+  --heading-color: #FFFFFF;
+  --surface-color: #1D344A;
+  --accent-color: #526F82;
+  --contrast-color: #FFFFFF;
+  --border-color: #294054;
+}
+
 /* button */
 .buyer-actions {
     display: flex;
@@ -8,6 +35,177 @@
 .buyer-actions .btn-primary {
     background-color: var(--accent-color);
     border-color: var(--accent-color);
+}
+
+.buyer-actions .btn-secondary {
+    background-color: #cdcfdb;
+    border-color: #cdcfdb;
+}
+
+/* detail */
+.buyer-detail-content {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+    max-width: 1000px;
+    margin: 0 auto;
+    border-radius: 12px;
+}
+
+.buyer-detail-image-wrap {
+    position: relative;
+    width: 450px;
+    aspect-ratio: 1/1;
+    margin-bottom: 15px;
+    flex-shrink: 0;
+}
+
+.buyer-detail-image {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.buyer-detail-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    padding : 4px 12px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.badge-instock {
+    background-color: #e5f8ef;
+    color: #1a9f5c;
+}
+
+.badge-outstock {
+    background-color: #fbe7e7;
+    color: #d84343;
+}
+/* info */
+.buyer-detail-info {
+    flex: 1;
+}
+
+.buyer-detail-artist {
+    display:block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--default-color);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    margin-top: 4px;
+}
+
+.buyer-detail-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--default-color);
+    margin: 0 0 12px;
+}
+
+.buyer-detail-price {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--accent-color);
+    margin-bottom: 16px;
+}
+
+.buyer-detail-stock {
+    background: #e7edf3;
+    display: inline-flex;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    width: fit-content;
+}
+
+.buyer-detail-stock span {
+    font-size: 15px;
+    color: #45607f;
+}
+
+.buyer-detail-desc {
+    margin-bottom: 24px;
+}
+
+.buyer-detail-desc span {
+    display: block;
+    font-weight: 600;
+    color: #172536;
+    margin-bottom: 6px;
+}
+
+.buyer-detail-desc p {
+    margin: 0;
+    color: #697783;
+    line-height: 1.6;
+}
+
+/* button */
+.buyer-detail-order {
+    display: inline-block;
+    width: fit-content;
+    padding: 12px 32px;
+}
+
+.buyer-detail-order.disabled {
+    background-color: #c9ccd1;
+    border-color: #c9ccd1;
+    pointer-events: none;
+}
+
+/* mobile */
+@media (max-width: 768px){
+    .buyer-detail-content {
+        flex-direction: column;
+    }
+
+    .buyer-detail-image-wrap {
+        width: 100%;
+        aspect-ratio: 1/1;
+        margin: 0 auto;
+    }
+
+    .buyer-detail-image {
+        height: 100%;
+        width: 100%;
+    }
+
+    .buyer-detail-title {
+        font-size: 20px;
+        margin-bottom: 8px;
+    }
+
+    .buyer-detail-price {
+        font-size: 18px;
+        margin-bottom: 12px;
+    }
+
+    .buyer-detail-stock {
+        padding: 6px 12px;
+        margin-bottom: 16px;
+    }
+
+    .buyer-detail-stock span {
+        font-size: 13px;
+    }
+
+    .buyer-detail-desc span {
+        font-size: 14px;
+    }
+
+    .buyer-detail-desc p {
+        font-size: 13px;
+    }
 }
 
 /* content (navbar&footer) */

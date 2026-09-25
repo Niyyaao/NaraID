@@ -16,6 +16,7 @@ class AlbumController extends Controller
 
     public function show(string $id)
     {
-    //
+        $album = Album::findOrFail(decrypt($id));
+        return view('pages.buyer.album.show', compact('album'));
     }
 }

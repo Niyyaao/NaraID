@@ -30,24 +30,24 @@
 
                         <div class="d-flex justify-content-center">
                             <a href="" class="btn btn-dark btn-sm mr-2">
-                                Order
+                                <span class="fas fa-shopping-bag"></span> Order
                             </a>
 
-                            <a href="" class="btn btn-dark btn-sm mr-2">
-                                Detail
+                            <a href="{{ route('buyer.album.show', encrypt($album->id)) }}" class="btn btn-dark btn-sm mr-2">
+                                <span class="fas fa-info-circle"></span> Detail
                             </a>
                         </div>
                     </div>
                 </div>
             </div>
         @empty
-        <div class="col-12">
-            <div class="card shadow">
-                <div class="card-body text-center text-muted">
-                    No Album Available.
+            <div class="col-12">
+                <div class="card shadow">
+                    <div class="card-body text-center text-muted">
+                        No Album Available.
+                    </div>
                 </div>
             </div>
-        </div>
         @endforelse
     </div>
 @endsection

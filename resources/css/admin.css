@@ -1,3 +1,30 @@
+:root {
+
+  --default-font: "Roboto", system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  --heading-font: "Lato", sans-serif;
+  --nav-font: "Montserrat", sans-serif;
+  --background-color: #F1F4F7;
+  --default-color: #1D2935;
+  --heading-color: #172536;
+  --accent-color: #526F82;
+  --surface-color: #FFFFFF;
+  --contrast-color: #FFFFFF;
+  --border-color: #D7E0E7;
+
+  scroll-behavior: smooth;
+}
+
+.dark-background {
+  --background-color: #172536;
+  --default-color: #FFFFFF;
+  --heading-color: #FFFFFF;
+  --surface-color: #1D344A;
+  --accent-color: #526F82;
+  --contrast-color: #FFFFFF;
+  --border-color: #294054;
+}
+
 /* admin page */
 .admin-page-title {
     color: var(--heading-color);
@@ -143,15 +170,15 @@
 }
 
 .admin-action-view {
-    color: var(--accent-color);
+    color: var(--accent-color) !important;
 }
 
 .admin-action-edit {
-    color: var(--accent-color);
+    color: var(--accent-color) !important;
 }
 
 .admin-action-delete {
-    color: #b85c5c;
+    color: #b85c5c !important ;
 }
 
 .admin-action:hover {
