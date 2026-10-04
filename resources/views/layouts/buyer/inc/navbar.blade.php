@@ -62,11 +62,11 @@
                         </a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#"
-                            onclick="event.preventDefault(); document.getElementById('form-logout').submit();">
+                            onclick="event.preventDefault(); document.getElementById('buyer-logout-form').submit();">
                             <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                             Logout
                         </a>
-                        <form action="{{ route('buyer.logout') }}" id="form-logout" method="POST" class="d-none">
+                        <form action="{{ route('buyer.logout') }}" id="buyer-logout-form" method="POST" class="d-none">
                             @csrf
                         </form>
                     </div>
