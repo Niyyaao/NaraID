@@ -9,7 +9,7 @@
 
     <div class="admin-card">
         <div class="card-body">
-            <table class="table table-striped table-hover datatable">
+            <table class="table table-striped table-hover datatable" style="width:100%">
                 <thead>
                     <tr>
                         <th>NO</th>
@@ -27,8 +27,8 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
 
-                            <td>{{ $order->buyer->name }}</td>
-                            <td>{{ $order->album->title }}</td>
+                            <td>{{ $order->buyer->name ?? '-' }}</td>
+                            <td>{{ $order->album->title ?? '-' }}</td>
                             <td>{{ number_format($order->qty, 0, ',', '.') }}</td>
                             <td class="text-start">IDR {{ number_format($order->total, 0, ',', '.') }}</td>
                             <td>
@@ -48,8 +48,8 @@
                                     class="btn btn-link admin-action admin-action-edit p-0 mx-2">
                                     <span class="fa fa-edit"></span>
                                 </a>
-                                <a href="javascript:void()"
-                                    onclick="handleDestroy('{{ route('admin.order.destroy', encrypt($order->id)) }}')"
+                                <a href="javascript:void(0)"
+                                    onclick="handleDestroy('{{ route('admin.order.destroy', encrypt($order->id)) }}', @js('Order With ID : ' . $order->id))"
                                     class="btn btn-link admin-action admin-action-delete p-0 mx-2">
                                     <span class="fa fa-trash"></span>
                                 </a>
@@ -76,22 +76,8 @@
     <script src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
     <script type="text/javascript">
-        $('.datatable').DataTable();
-
-        function handleDestroy(url) {
-            Swal.fire({
-                title: "Are you sure want to delete it?",
-                text: "You cannot recover it",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonText: "Delete",
-                cancelButtonText: "Cancel"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $('#form-destroy').attr('action', url);
-                    $('#form-destroy').submit();
-                }
-            });
-        }
+        $('.datatable').DataTable({
+            scrollX: true
+        });
     </script>
 @endpush

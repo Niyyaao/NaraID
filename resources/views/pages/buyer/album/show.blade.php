@@ -3,14 +3,23 @@
 @section('title', 'Album Detail Page')
 
 @section('content')
-<div class="col-xl">
+    <div class="page-head">
+        <div>
+            <h1>Album Detail</h1>
+        </div>
+        <a href="{{ route('buyer.album.index') }}" class="btn-back">
+            <i class="fas fa-arrow-left mr-2"></i><span>Albums</span>
+        </a>
+    </div>
+
+
     <div class="card-body shadow mb-4 buyer-detail-content">
         <div class="buyer-detail-image-wrap">
             <img src="{{ asset('storage/albums/' . $album->image) }}" alt="{{ $album->title }}" class="buyer-detail-image">
             @if ($album->stock > 0)
-            <span class="buyer-detail-badge badge-instock">In Stock</span>
+                <span class="buyer-detail-badge badge-instock">In Stock</span>
             @else
-            <span class="buyer-detail-badge badge-outstock">Sold Out</span>
+                <span class="buyer-detail-badge badge-outstock">Sold Out</span>
             @endif
         </div>
         <div class="buyer-detail-info">
@@ -22,11 +31,17 @@
                 <p>{{ $album->description }}</p>
             </div>
             <div class="buyer-actions">
-                <a href="#" class="btn btn-primary buyer-detail-order @if ($album->stock <= 0) disabled @endif"><span class="fas fa-shopping-bag"></span> {{ $album->stock > 0 ? 'Order' : 'Sold Out' }}</a>
-                <a href="{{ route('buyer.album.index') }}" class="btn btn-secondary"><span class="fas fa-arrow-alt-circle-left"></span> Back</a>
+                @if ($album->stock > 0)
+                    <a href="{{ route('buyer.order.create.album', encrypt($album->id)) }}"
+                        class="album-btn album-btn--primary px-4">
+                        <span class="fas fa-shopping-bag"></span> Order
+                    </a>
+                @else
+                    <span class="album-btn album-btn--disabled">
+                        <span class="fas fa-ban"></span> Sold Out
+                    </span>
+                @endif
             </div>
         </div>
-
     </div>
-</div>
 @endsection

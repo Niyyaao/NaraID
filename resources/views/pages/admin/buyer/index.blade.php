@@ -9,7 +9,7 @@
 
     <div class="admin-card">
         <div class="card-body">
-            <table class="table table-striped table-hover datatable">
+            <table class="table table-striped table-hover datatable" style="width:100%">
                 <thead>
                     <tr>
                         <th>NO</th>
@@ -31,8 +31,8 @@
                                     class="btn btn-link admin-action admin-action-view p-0 mx-2">
                                     <span class="fa fa-search"></span>
                                 </a>
-                                <a href="javascript:void()"
-                                    onclick="handleDestroy('{{ route('admin.buyer.destroy', encrypt($buyer->id)) }}')"
+                                <a href="javascript:void(0)"
+                                    onclick="handleDestroy('{{ route('admin.buyer.destroy', encrypt($buyer->id)) }}', @js('Buyer : ' . $buyer->name))"
                                     class="btn btn-link admin-action admin-action-delete p-0 mx-2">
                                     <span class="fa fa-trash"></span>
                                 </a>
@@ -59,22 +59,8 @@
     <script src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
     <script type="text/javascript">
-        $('.datatable').DataTable();
-
-        function handleDestroy(url) {
-            Swal.fire({
-                title: "Are you sure want to delete it?",
-                text: "You cannot recover it",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonText: "Delete",
-                cancelButtonText: "Cancel"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $('#form-destroy').attr('action', url);
-                    $('#form-destroy').submit();
-                }
-            });
-        }
+        $('.datatable').DataTable({
+            scrollX: true
+        });
     </script>
 @endpush

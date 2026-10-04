@@ -10,7 +10,8 @@ Route::get('/', function () {
 
 Route::get('login', [App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('login');
 Route::post('login', [App\Http\Controllers\Auth\LoginController::class, 'login']);
-Route::post('logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
+Route::post('/admin/logout', [App\Http\Controllers\Auth\LoginController::class, 'logoutAdmin'])->name('admin.logout');
+Route::post('/buyer/logout', [App\Http\Controllers\Auth\LoginController::class, 'logoutBuyer'])->name('buyer.logout');
 
 //Registrasi pembeli
 Route::get('/register', [App\Http\Controllers\Auth\Buyer\RegisterController::class, 'showRegistrationForm'])->name('register');
@@ -66,7 +67,21 @@ Route::group(
     Route::resource('/album', App\Http\Controllers\Buyer\AlbumController::class)->only(['index', 'show']);
 
     // route halaman order
-    Route::resource('/order', App\Http\Controllers\Buyer\OrderController::class);
+        // order lewat halaman order
+    Route::get('/order/create', [App\Http\Controllers\Buyer\OrderController::class, 'create'])->name('order.create');
+
+        // order lewat halaman album
+    Route::get('/order/create/{id}', [App\Http\Controllers\Buyer\OrderController::class, 'createFromAlbum'])->name('order.create.album');
+
+    Route::post('/order', [App\Http\Controllers\Buyer\OrderController::class, 'store'])->name('order.store');
+
+    Route::get('/order', [App\Http\Controllers\Buyer\OrderController::class, 'index'])->name('order.index');
+
+    Route::get('/order/{id}', [App\Http\Controllers\Buyer\OrderController::class, 'show'])->name('order.show');
+
+    // route untuk payment
+    Route::get('order/{id}/payment', [App\Http\Controllers\Buyer\OrderController::class, 'payment'])->name('order.payment');
+Route::post('order/{id}/payment', [App\Http\Controllers\Buyer\OrderController::class, 'uploadPayment'])->name('order.payment.upload');
 
     }
     

@@ -8,7 +8,7 @@
     </div>
 
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-lg-8">
             <div class="admin-form-card">
                 <form action="{{ route('admin.album.update', encrypt($album->id)) }}" method="POST"
                     enctype="multipart/form-data">

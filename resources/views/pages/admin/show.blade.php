@@ -49,12 +49,13 @@
                     Cancel
                 </a>
 
-                <a href="javascript:void()"
-                    onclick="handleDestroy('{{ route('admin.admin.destroy', encrypt($user->id)) }}')"
-                    class="btn btn-danger">
-                    <span class="fa fa-trash"></span>
-                    Delete
-                </a>
+                @if ($user->id !== auth('web')->id())
+                    <a href="javascript:void(0)"
+                        onclick="handleDestroy('{{ route('admin.admin.destroy', encrypt($user->id)) }}', @js('Admin :'. $user->name))"
+                        class="btn btn-link admin-action admin-action-delete p-0 mx-2">
+                        <span class="fa fa-trash"></span>
+                    </a>
+                @endif
             </div>
 
         </div>
@@ -71,23 +72,4 @@
 @push('scripts')
     <script src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
-    <script type="text/javascript">
-        $('.datatable').DataTable();
-
-        function handleDestroy(url) {
-            Swal.fire({
-                title: "Are you sure want to delete it?",
-                text: "You cannot recover it",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonText: "Delete",
-                cancelButtonText: "Cancel"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $('#form-destroy').attr('action', url);
-                    $('#form-destroy').submit();
-                }
-            });
-        }
-    </script>
 @endpush

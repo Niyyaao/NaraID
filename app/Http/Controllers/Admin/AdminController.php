@@ -97,8 +97,20 @@ class AdminController extends Controller
     public function destroy(string $id)
     {
         $user = User::findOrFail(decrypt($id));
+
+        if ($user->id === auth('web')->id()) {
+            return redirect()->route('admin.admin.index')
+                ->with('error', 'You cannot delete your own account.');
+        }
+        
+        if (User::count() <= 1) {
+            return redirect()->route('admin.admin.index')
+                ->with('error', 'At least one admin must remain.');
+        }
+
         $user->delete();
 
-        return redirect()->route('admin.admin.index')->with('success', 'Admin Successfully Deleted.');
+        return redirect()->route('admin.admin.index')
+            ->with('success', 'Admin Successfully Deleted.');
     }
 }

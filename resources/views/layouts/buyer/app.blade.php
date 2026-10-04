@@ -11,16 +11,22 @@
 
     <title>@yield('title')</title>
 
-    @vite(['resources/sass/app.scss', 'resources/css/main.css', 'resources/css/buyer.css', 'resources/js/main.js', 'resources/js/app.js'])
+
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=Poppins:wght@400;500&display=swap"
+        rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
+    @vite(['resources/css/main.css', 'resources/css/buyer.css', 'resources/js/main.js', 'resources/js/app.js'])
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -88,6 +94,46 @@
     <script src="{{ asset('js/demo/chart-area-demo.js') }}"></script>
     <script src="{{ asset('js/demo/chart-pie-demo.js') }}"></script>
 
+    {{-- Notifikasi --}}
+    <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            customClass: {
+                container: 'swal-toast-below-navbar',
+                popup: 'swal-nara-toast'
+            },
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer);
+                toast.addEventListener('mouseleave', Swal.resumeTimer);
+            }
+        });
+
+        @if (session('success'))
+            Toast.fire({
+                icon: 'success',
+                title: @json(session('success'))
+            });
+        @endif
+
+        @if ($errors->any())
+            Swal.fire({
+                icon: 'error',
+                title: 'Please check your input',
+                html: `<ul class="swal-error-list">{!! collect($errors->all())->map(fn($e) => '<li>' . e($e) . '</li>')->implode('') !!}</ul>`,
+                confirmButtonText: 'OK',
+                buttonsStyling: false,
+                customClass: {
+                    popup: 'swal-nara-popup',
+                    title: 'swal-nara-title',
+                    confirmButton: 'btn btn-primary px-4'
+                }
+            });
+        @endif
+    </script>
     @stack('scripts')
 
 </body>

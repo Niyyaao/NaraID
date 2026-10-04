@@ -76,8 +76,8 @@
                     Cancel
                 </a>
 
-                <a href="javascript:void()"
-                    onclick="handleDestroy('{{ route('admin.album.destroy', encrypt($album->id)) }}')"
+                <a href="javascript:void(0)"
+                    onclick="handleDestroy('{{ route('admin.album.destroy', encrypt($album->id)) }}', @js('Album : ' . $album->title))"
                     class="btn btn-danger">
                     <span class="fa fa-trash"></span>
                     Delete
@@ -97,24 +97,3 @@
 
 @endsection
 
-@push('scripts')
-    <script type="text/javascript">
-        $('.datatable').DataTable();
-
-        function handleDestroy(url) {
-            Swal.fire({
-                title: "Are you sure want to delete it?",
-                text: "You cannot recover it",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonText: "Delete",
-                cancelButtonText: "Cancel"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $('#form-destroy').attr('action', url);
-                    $('#form-destroy').submit();
-                }
-            });
-        }
-    </script>
-@endpush

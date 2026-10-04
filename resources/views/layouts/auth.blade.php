@@ -54,6 +54,30 @@
             box-shadow: 0 0 0 0.2rem rgba(127, 168, 201, 0.25);
         }
 
+        .regin-page .container {
+            padding-top: 3rem;
+            padding-bottom: 3rem;
+        }
+
+        .regin-page .back-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            margin-bottom: 1rem;
+            border-radius: 50%;
+            background: #fff;
+            color: var(--accent-color, #526F82);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .regin-page .back-btn:hover {
+            transform: translateX(-3px);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+        }
+
         .regin-card .btn-primary {
             background-color: #526F82;
             border-color: #526F82;

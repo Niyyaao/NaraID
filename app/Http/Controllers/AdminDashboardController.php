@@ -25,8 +25,8 @@ class AdminDashboardController extends Controller
         $albumterlaris = Album::select('albums.*')
             ->selectRaw('SUM(orders.qty) as total_terjual')
             ->join('orders', 'orders.album_id', '=', 'albums.id')
-            ->whereIn('orders.status', ['verified', 'ready_for_pickup'])
-            ->groupBy('albums.id', 'albums.image', 'albums.title', 'albums.artist_name', 'albums.description', 'albums.price', 'albums.stock', 'albums.created_at', 'albums.updated_at')
+            ->whereIn('orders.status', ['verified', 'ready_for_pickup', 'finished'])
+            ->groupBy('albums.id')
             ->orderByDesc('total_terjual')
             ->limit('5')
             ->get();

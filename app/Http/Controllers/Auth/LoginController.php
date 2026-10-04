@@ -21,23 +21,23 @@ class LoginController extends Controller
         ]);
 
         if (Auth::guard('web')->attempt(
-            $credentials, 
+            $credentials,
             $request->boolean('remember')
         )) {
             $request->session()->regenerate();
 
             return redirect()->intended('/admin/dashboard')
-            ->with('success', 'Login Successfully');
+                ->with('success', 'Login Successfully');
         }
 
         if (Auth::guard('buyer')->attempt(
-            $credentials, 
+            $credentials,
             $request->boolean('remember')
         )) {
             $request->session()->regenerate();
-            
+
             return redirect()->intended('/buyer/dashboard')
-            ->with('success', 'Login Successfully');
+                ->with('success', 'Login Successfully');
         }
 
         return back()->withErrors([
@@ -45,15 +45,20 @@ class LoginController extends Controller
         ])->onlyInput('email');
     }
 
-    public function logout(Request $request)
+    public function logoutAdmin(Request $request)
     {
         Auth::guard('web')->logout();
-        Auth::guard('buyer')->logout();
-
-        $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('/')->with('success', 'Logout Successfully');
+    }
+
+    public function logoutBuyer(Request $request)
+    {
+        Auth::guard('buyer')->logout();
+        $request->session()->regenerateToken();
+
+        return redirect('/')->with('success', 'Logout Successfully');
     }
 
     /*

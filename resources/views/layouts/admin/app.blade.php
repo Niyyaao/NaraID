@@ -110,6 +110,77 @@
     <script src="{{ asset('js/demo/chart-area-demo.js') }}"></script>
     <script src="{{ asset('js/demo/chart-pie-demo.js') }}"></script>
 
+    <script>
+        function handleDestroy(url, name = 'this item') {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Delete ' + name + '?',
+                html: 'This action <b>cannot be undone</b>.',
+                showCancelButton: true,
+                confirmButtonText: '<i class="fa fa-trash"></i> Yes, delete',
+                cancelButtonText: 'Cancel',
+                reverseButtons: true,
+                focusCancel: true,
+                buttonsStyling: false,
+                customClass: {
+                    popup: 'swal-nara-popup',
+                    title: 'swal-nara-title',
+                    confirmButton: 'btn btn-danger mx-2 px-4',
+                    cancelButton: 'btn btn-outline-secondary mx-2 px-4'
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: 'Deleting...',
+                        allowOutsideClick: false,
+                        didOpen: () => Swal.showLoading()
+                    });
+                    $('#form-destroy').attr('action', url).submit();
+                }
+            });
+        }
+    </script>
+    {{-- Notifikasi --}}
+    <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            customClass: {
+                container: 'swal-toast-below-navbar',
+                popup: 'swal-nara-toast'
+            },
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer);
+                toast.addEventListener('mouseleave', Swal.resumeTimer);
+            }
+        });
+
+        @if (session('success'))
+            Toast.fire({
+                icon: 'success',
+                title: @json(session('success'))
+            });
+        @endif
+
+        @if ($errors->any())
+            Swal.fire({
+                icon: 'error',
+                title: 'Please check your input',
+                html: `<ul class="swal-error-list">{!! collect($errors->all())->map(fn($e) => '<li>' . e($e) . '</li>')->implode('') !!}</ul>`,
+                confirmButtonText: 'OK',
+                buttonsStyling: false,
+                customClass: {
+                    popup: 'swal-nara-popup',
+                    title: 'swal-nara-title',
+                    confirmButton: 'btn btn-primary px-4'
+                }
+            });
+        @endif
+    </script>
+
     @stack('scripts')
 
 </body>

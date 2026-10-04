@@ -8,7 +8,7 @@
 
         {{-- <!-- Logo --> --}}
         <a class="navbar-brand font-weight-bold" href="{{ route('buyer.dashboard') }}">
-            NARA.ID
+            <img src="{{ asset('img/logo3.png') }}" alt="NARA.ID" style="width: 120px; height: auto;">
         </a>
 
         <div class="collapse navbar-collapse" id="navbarmenu">
@@ -28,26 +28,27 @@
                 </li>
             </ul>
 
-            {{-- <!-- Search "Find" --> --}}
-            <form class="d-flex ml-md-auto mb-2 mb-md-0" role="search">
-                <div class="input-group" style="max-width: 240px;">
-                    <input type="text" class="form-control bg-light border-0 small" placeholder="Find...">
-                    <button class="btn btn-primary" type="button">
-                        <i class="fas fa-search fa-sm"></i>
-                    </button>
-                </div>
-            </form>
-
-            <div class="topbar-divider d-none d-md-block mx-3"></div>
 
             {{-- <!-- Topbar Navbar --> --}}
-            <ul class="navbar-nav">
+            <ul class="navbar-nav ml-md-auto">
                 <!-- Nav Item - User Information -->
                 <li class="nav-item dropdown no-arrow">
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
-                        <img class="img-profile rounded-circle" src="{{ asset('img/undraw_profile.svg') }}">
+                        @php
+                            $name = Auth::guard('buyer')->user()->name;
+                            $initial = strtoupper(substr($name, 0, 1));
+
+                            $colors = ['#1e3a6e', '#526F82', '#3f5d8a', '#2f6f8f', '#45607f', '#5a7fa6'];
+
+                            $color = $colors[ord($initial) % count($colors)];
+                        @endphp
+
+                        <div class="img-profile rounded-circle d-flex align-items-center justify-content-center"
+                            style="width: 36px; height: 36px; background-color: {{ $color }}; color: white; font-weight: 600;">
+                            {{ $initial }}
+                        </div>
                         <span
                             class="ml-2 d-none d-lg-inline text-gray-600 small">{{ Auth::guard('buyer')->user()->name }}</span>
 
@@ -65,7 +66,7 @@
                             <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                             Logout
                         </a>
-                        <form action="{{ route('logout') }}" id="form-logout" method="POST" class="d-none">
+                        <form action="{{ route('buyer.logout') }}" id="form-logout" method="POST" class="d-none">
                             @csrf
                         </form>
                     </div>

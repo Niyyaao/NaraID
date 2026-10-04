@@ -61,10 +61,21 @@ class OrderController extends Controller
         $order = Order::findOrFail(decrypt($id));
 
         $request->validate([
-            'status' => 'required|in:awaiting_payment,awaiting_verification,verified,ready_for_pickup,finished',
+            'status' => 'required|in:awaiting_payment,awaiting_verification,verified,ready_for_pickup,finished,cancelled',
         ]);
 
-        $order->update(['status' => $request->status]);
+        // order cancelled dikunci supaya tidak "hidup" lagi tanpa memotong stok
+        if ($order->status === 'cancelled') {
+            return back()->withErrors(['status' => 'A cancelled order can no longer be changed.']);
+        }
+
+        if ($request->status === 'cancelled') {
+            if (! $order->cancel()) {
+                return back()->withErrors(['status' => 'This order can no longer be cancelled.']);
+            }
+        } else {
+            $order->update(['status' => $request->status]);
+        }
 
         return redirect()->route('admin.order.index')->with('success', 'Order Status Updated.');
     }
@@ -75,6 +86,9 @@ class OrderController extends Controller
     public function destroy(string $id)
     {
         $order = Order::findOrFail(decrypt($id));
+
+        // balikin stok kalau order belum dibayar / belum diverifikasi
+        $order->cancel(['awaiting_payment', 'awaiting_verification']);
 
         if ($order->payment_proof && Storage::disk('public')->exists('orders/' . $order->payment_proof)) {
             Storage::disk('public')->delete('orders/' . $order->payment_proof);

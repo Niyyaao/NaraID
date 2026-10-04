@@ -33,8 +33,8 @@
             <div class="top-row d-flex align-items-center justify-content-between">
                 <a class="logo d-flex align-items-center">
                     <!-- Uncomment the line below if you also wish to use an image logo -->
-                    <!-- <img src="assets/img/logo.webp" alt=""> -->
-                    <h1 class="sitename">NARA.ID</h1>
+                    <img src="{{ asset('img/logo1.png') }}" alt="NARA.ID" style="width: 150px; height: auto;">
+                    <!-- <h1 class="sitename">NARA.ID</h1> -->
                 </a>
             </div>
         </div>
@@ -44,7 +44,7 @@
         <!-- Hero Section -->
         <section id="hero" class="hero section dark-background">
             <div class="hero-background">
-                <img src="{{ asset('img/hero-bg.jpg') }}" alt="K-Pop Albums">
+                <img src="{{ asset('img/background.png') }}" alt="K-Pop Albums">
                 <div class="hero-overlay"></div>
             </div>
             <div class="hero-content">
@@ -72,33 +72,61 @@
             </div>
         </section>
         <!-- /Hero Section -->
-         
+
         <!-- About Section -->
         <section id="about" class="about section">
             <!-- Section Title -->
             <div class="container section-title" data-aos="fade-up">
                 <span class="subtitle">About Nara.Id</span>
                 <h2>Your K-Pop Album Pre-Order Platform</h2>
-                <p>Nara.Id make it easy to pre-order your favorite K-pop Albums and pick them up directly at the store.</p>
+                <p>
+                    Nara.Id is a web-based platform made for K-Pop fans who want a
+                    simpler way to pre-order albums. Instead of ordering through
+                    scattered chats and manual notes, everything is organized in one
+                    place, so every order is clear, recorded, and easy to track.
+                </p>
             </div>
             <!-- End Section Title -->
+
             <div class="container" data-aos="fade-up" data-aos-delay="100">
-                <div class="row align-items-center">
-                    <div class="col-lg-6">
-                        <div class="content">
-                            <h2>Simple and Convenient Album Ordering</h2>
+                <div class="row g-4 justify-content-center">
+
+                    <div class="col-md-4">
+                        <div class="text-center h-100 p-3">
+                            <i class="bi bi-collection fs-1 mb-3 d-block"></i>
+                            <h5>All in One Place</h5>
                             <p>
-                                Browse available albums, place your pre-order,
-                                complete your payment, and check your order status
-                                until your album is ready for pickup.
+                                Album details, prices, and stock information are
+                                available in one catalog, so you don't need to ask
+                                around before ordering.
                             </p>
                         </div>
                     </div>
-                    <div class="col-lg-6">
-                        <div class="image-wrapper">
-                            <img src="..." class="img-fluid" alt="K-Pop Album">
+
+                    <div class="col-md-4">
+                        <div class="text-center h-100 p-3">
+                            <i class="bi bi-shield-check fs-1 mb-3 d-block"></i>
+                            <h5>Clear and Organized</h5>
+                            <p>
+                                Every pre-order is recorded with its own payment and
+                                order status, which helps avoid mix-ups and
+                                misunderstandings.
+                            </p>
                         </div>
                     </div>
+
+                    <div class="col-md-4">
+                        <div class="text-center h-100 p-3">
+                            <i class="bi bi-shop fs-1 mb-3 d-block"></i>
+                            <h5>Pick Up at the Store</h5>
+                            <p>
+                                Collect your album directly at the store, so there
+                                are no shipping worries and you can check your album
+                                right away.
+                            </p>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </section>
@@ -180,11 +208,12 @@
                     </div>
                     <!-- Tab Content -->
                     <div class="tab-content" data-aos="fade-up" data-aos-delay="300">
+
                         <!-- TAB 1 -->
                         <div class="tab-pane fade active show" id="features-tab-1">
-                            <div class="row align-items-center">
-                                <div class="col-lg-6">
-                                    <div class="content-area">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-8">
+                                    <div class="content-area ">
                                         <div class="content-badge">
                                             <i class="bi bi-collection"></i>
                                             <span>Step 01</span>
@@ -194,7 +223,7 @@
                                             Explore the available K-Pop albums
                                             and find the album you want to pre-order.
                                         </p>
-                                        <div class="feature-points">
+                                        <div class="feature-points ">
                                             <div class="point-item">
                                                 <i class="bi bi-check-circle"></i>
                                                 <span>Browse available albums</span>
@@ -210,28 +239,13 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
-                                    <div class="visual-content">
-                                        <img src="assets/img/features/features-2.webp"
-                                            alt="Browse K-Pop Albums"
-                                            class="img-fluid">
-                                        <div class="floating-element">
-                                            <div class="floating-card">
-                                                <i class="bi bi-search"></i>
-                                                <div class="card-info">
-                                                    <span>Album</span>
-                                                    <strong>Available</strong>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
+
                         <!-- TAB 2 -->
                         <div class="tab-pane fade" id="features-tab-2">
-                            <div class="row align-items-center">
-                                <div class="col-lg-6">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-8">
                                     <div class="content-area">
                                         <div class="content-badge">
                                             <i class="bi bi-cart-check"></i>
@@ -242,7 +256,7 @@
                                             Select your favorite album, choose
                                             the quantity, and submit your order.
                                         </p>
-                                        <div class="feature-points">
+                                        <div class="feature-points ">
                                             <div class="point-item">
                                                 <i class="bi bi-check-circle"></i>
                                                 <span>Select your favorite album</span>
@@ -258,28 +272,13 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
-                                    <div class="visual-content">
-                                        <img src="assets/img/features/features-4.webp"
-                                            alt="Place Album Order"
-                                            class="img-fluid">
-                                        <div class="floating-element">
-                                            <div class="floating-card">
-                                                <i class="bi bi-bag-check"></i>
-                                                <div class="card-info">
-                                                    <span>Order</span>
-                                                    <strong>Placed</strong>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
+
                         <!-- TAB 3 -->
                         <div class="tab-pane fade" id="features-tab-3">
-                            <div class="row align-items-center">
-                                <div class="col-lg-6">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-8">
                                     <div class="content-area">
                                         <div class="content-badge">
                                             <i class="bi bi-credit-card"></i>
@@ -307,28 +306,13 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
-                                    <div class="visual-content">
-                                        <img src="assets/img/features/features-1.webp"
-                                            alt="Payment"
-                                            class="img-fluid">
-                                        <div class="floating-element">
-                                            <div class="floating-card">
-                                                <i class="bi bi-credit-card"></i>
-                                                <div class="card-info">
-                                                    <span>Payment</span>
-                                                    <strong>Bank Transfer</strong>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
+
                         <!-- TAB 4 -->
                         <div class="tab-pane fade" id="features-tab-4">
-                            <div class="row align-items-center">
-                                <div class="col-lg-6">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-8">
                                     <div class="content-area">
                                         <div class="content-badge">
                                             <i class="bi bi-shop"></i>
@@ -355,24 +339,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
-                                    <div class="visual-content">
-                                        <img src="assets/img/features/features-5.webp"
-                                            alt="Album Pickup"
-                                            class="img-fluid">
-                                        <div class="floating-element">
-                                            <div class="floating-card">
-                                                <i class="bi bi-box-seam"></i>
-                                                <div class="card-info">
-                                                    <span>Order</span>
-                                                    <strong>Ready for Pickup</strong>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -387,7 +356,7 @@
                 <div class="col-lg-4">
                     <div class="footer-content">
                         <a href="#" class="logo d-flex align-items-center mb-4">
-                            <span class="sitename">NARA.ID</span>
+                            <img src="{{ asset('img/logo1.png') }}" alt="NARA.ID" style="width: 150px; height: auto;">
                         </a>
                         <p class="mb-4">
                             Nara.Id is a web-based platform for K-Pop

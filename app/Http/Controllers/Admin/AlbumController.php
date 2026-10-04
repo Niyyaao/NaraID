@@ -6,6 +6,7 @@ use App\Models\Album;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class AlbumController extends Controller
 {
@@ -58,7 +59,6 @@ class AlbumController extends Controller
         ]);
 
         return redirect()->route('admin.album.index')->with('success', 'Album Created Successfully');
-
     }
 
     /**
@@ -104,9 +104,13 @@ class AlbumController extends Controller
         $album->release_date = $request->release_date;
 
         if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $imageName = Str::random(16) . '.' . $image->getClientOriginalExtension();
+            // hapus gambar lama
+            if ($album->image && Storage::disk('public')->exists('albums/' . $album->image)) {
+                Storage::disk('public')->delete('albums/' . $album->image);
+            }
 
+            $image = $request->file('image');
+            $imageName = Str::random(16) . '.' . $image->extension();
             $image->storeAs('albums', $imageName, 'public');
 
             // simpan ke db
@@ -124,8 +128,21 @@ class AlbumController extends Controller
     public function destroy(string $id)
     {
         $album = Album::findOrFail(decrypt($id));
+
+        // Block deletion if the album is already used in any order
+        if ($album->orderDetails()->exists()) {
+            return redirect()->route('admin.album.index')
+                ->with('error', 'This album cannot be deleted because it already has orders.');
+        }
+
+        // Delete the image only after the check passes
+        if ($album->image && Storage::disk('public')->exists('albums/' . $album->image)) {
+            Storage::disk('public')->delete('albums/' . $album->image);
+        }
+
         $album->delete();
 
-        return redirect()->route('admin.album.index')->with('success', 'Album Successfully Deleted');
+        return redirect()->route('admin.album.index')
+            ->with('success', 'Album Successfully Deleted');
     }
 }
