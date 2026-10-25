@@ -43,7 +43,7 @@
         @endforeach
     </div>
 
-    <div class="card orders-card border-0 shadow-sm">
+    <div class="card orders-card border-0 shadow-sm mb-3">
         <div class="table-responsive">
             <table class="table orders-table mb-0">
                 <thead>
@@ -60,7 +60,7 @@
                 <tbody>
                     @forelse ($orders as $order)
                         <tr>
-                            <td>{{ $orders->firstItem() + $loop->index }}</td>
+                            <td>{{ $loop->iteration }}</td>
 
                             <td>
                                 <strong>#{{ $order->id }}</strong><br>
@@ -101,10 +101,6 @@
                 </tbody>
             </table>
         </div>
-    </div>
-
-    <div class="mt-3">
-        {{ $orders->links() }}
     </div>
 
 @endsection

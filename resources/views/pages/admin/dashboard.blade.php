@@ -61,7 +61,8 @@
                             <div class="row no-gutters align-items-center">
                                 <div class="col-auto">
                                     <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{ $totalorders }}</div>
-                                    <a class="text-xs font-weight-bold mb-1" href="{{ route('admin.order.index') }}">See All</a>
+                                    <a class="text-xs font-weight-bold mb-1" href="{{ route('admin.order.index') }}">See
+                                        All</a>
                                 </div>
                             </div>
                         </div>
@@ -109,7 +110,7 @@
                     <ul class="list-group list-group-flush">
                         @forelse ($albumterlaris as $album)
                             <li class="list-group-item d-flex align-items-center">
-                                
+
                                 <img src="{{ asset('storage/albums/' . $album->image) }}"
                                     onerror="this.src='{{ asset('images/default-cover.png') }}'" class="rounded mr-3"
                                     width="45" height="45" style="object-fit: cover;">
@@ -142,13 +143,14 @@
                                 <img src="{{ asset('storage/albums/' . $album->image) }}"
                                     onerror="this.src='{{ asset('images/default-cover.png') }}'" class="rounded mr-3"
                                     width="45" height="45" style="object-fit:cover;">
-                                    <div class="flex-grow-1">
-                                        <div class="font-weight-bold">{{ $album->title }}</div>
-                                        <small class="text-muted">{{ $album->artist_name }} . {{ $album->release_date?->format('M Y') }}</small>
-                                    </div>
+                                <div class="flex-grow-1">
+                                    <div class="font-weight-bold">{{ $album->title }}</div>
+                                    <small class="text-muted">{{ $album->artist_name }} .
+                                        {{ $album->release_date?->format('M Y') }}</small>
+                                </div>
                             </li>
                         @empty
-                        <li class="list-group-item text-muted">No Albums Yet.</li>
+                            <li class="list-group-item text-muted">No Albums Yet.</li>
                         @endforelse
                     </ul>
                 </div>

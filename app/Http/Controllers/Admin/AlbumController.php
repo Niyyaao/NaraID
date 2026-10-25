@@ -13,10 +13,16 @@ class AlbumController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $albums = Album::all();
-        return view('pages.admin.album.index', compact('albums'));
+        $artist = $request->query('artist');
+
+        $artists = Album::select('artist_name')->distinct()->orderBy('artist_name')->pluck('artist_name');
+
+        $albums = Album::query()
+            ->when($artist, fn($q) => $q->where('artist_name', $artist))
+            ->get();
+        return view('pages.admin.album.index', compact('albums', 'artists'));
     }
 
     /**
@@ -66,7 +72,8 @@ class AlbumController extends Controller
      */
     public function show(string $id)
     {
-        $album = Album::findOrFail(decrypt($id));
+        $album = Album::with(['orders' => fn($q) => $q->with('buyer')->latest()])
+        ->findOrFail(decrypt($id));
         return view('pages.admin.album.show', compact('album'));
     }
 
@@ -130,7 +137,7 @@ class AlbumController extends Controller
         $album = Album::findOrFail(decrypt($id));
 
         // Block deletion if the album is already used in any order
-        if ($album->orderDetails()->exists()) {
+        if ($album->orders()->exists()) {
             return redirect()->route('admin.album.index')
                 ->with('error', 'This album cannot be deleted because it already has orders.');
         }

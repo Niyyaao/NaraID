@@ -66,6 +66,23 @@
             </div>
         @endif
 
+        {{-- Refund info --}}
+        @if ($order->status === 'cancelled' && $order->payment_proof)
+            <div class="order-note order-note--cancelled">
+                <i class="fas fa-undo"></i>
+                <span>
+                    Your payment will be refunded within <strong>1x24 hours</strong>.
+                    If it hasn't arrived yet, please contact us at <strong>+62 856-9352-6592</strong>
+                    or <strong>naraid@gmail.com</strong>.
+                </span>
+            </div>
+        @elseif ($order->status === 'cancelled')
+            <div class="order-note order-note--cancelled">
+                <i class="fas fa-info-circle"></i>
+                <span>No payment was made for this order, so no refund is needed.</span>
+            </div>
+        @endif
+
         {{-- Pickup info --}}
         @if ($order->status === 'ready_for_pickup')
             <div class="pickup-card">
@@ -76,7 +93,7 @@
                 <div class="pickup-card-body">
                     <h5>Pickup Location</h5>
                     <strong>Nara.Id Store</strong>
-                    <p>Jl. Contoh Raya No. 123, Ungaran, Kab. Semarang, Jawa Tengah</p>
+                    <p>Jl. Jenderal Sudirman No. 45, Purbalingga, Jawa Tengah 53311</p>
 
                     <div class="pickup-card-meta">
                         <span><i class="far fa-clock"></i> Mon – Sat, 10:00 – 20:00</span>
@@ -86,7 +103,7 @@
                     <small>Please show your Order ID <b>#{{ $order->id }}</b> when picking up.</small>
                 </div>
 
-                <a href="https://www.google.com/maps/search/?api=1&query={{ urlencode('Jl. Contoh Raya No. 123, Ungaran') }}"
+                <a href="https://www.google.com/maps/search/?api=1&query={{ urlencode('Jl. Jenderal Sudirman No. 45, Purbalingga') }}"
                     target="_blank" rel="noopener" class="btn btn-sm pickup-card-btn">
                     <i class="fas fa-map-marker-alt mr-1"></i> Open in Maps
                 </a>
@@ -153,7 +170,8 @@
 
         </div>
         @if (in_array($order->status, ['awaiting_payment', 'awaiting_verification']))
-            <a href="{{ route('buyer.order.payment', encrypt($order->id)) }}" class="btn btn-sm btn-primary my-2 px-4">Pay</a>
+            <a href="{{ route('buyer.order.payment', encrypt($order->id)) }}"
+                class="btn btn-sm btn-primary my-2 px-4">Pay</a>
         @endif
     </div>
 

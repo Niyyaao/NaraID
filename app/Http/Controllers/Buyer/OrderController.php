@@ -21,15 +21,14 @@ class OrderController extends Controller
             ->where('buyer_id', auth()->id())
             ->when($status, fn($q) => $q->where('status', $status))
             ->latest()
-            ->paginate(10)
-            ->withQueryString();
+            ->get();
 
         return view('pages.buyer.order.index', compact('orders', 'status'));
     }
 
     public function create()
     {
-        $albums = Album::where('stock', '>', 0)->get();
+        $albums = Album::where('stock', '>', 0)->orderByDesc('release_date')->get();
 
         return view('pages.buyer.order.create', compact('albums'));
     }

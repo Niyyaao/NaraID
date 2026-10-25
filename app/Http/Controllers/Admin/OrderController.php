@@ -12,10 +12,11 @@ class OrderController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $orders = Order::with(['buyer', 'album'])->latest()->get();
-        return view('pages.admin.order.index', compact('orders'));
+        $status = $request->query('status');
+        $orders = Order::with(['buyer', 'album'])->when($status, fn($q) => $q->where('status', $status))->latest()->get();
+        return view('pages.admin.order.index', compact('orders', 'status'));
     }
 
     /**
@@ -87,8 +88,12 @@ class OrderController extends Controller
     {
         $order = Order::findOrFail(decrypt($id));
 
-        // balikin stok kalau order belum dibayar / belum diverifikasi
-        $order->cancel(['awaiting_payment', 'awaiting_verification']);
+        // hanya order yang sudah cancelled yang boleh dihapus
+        if ($order->status !== 'cancelled') {
+            return redirect()
+                ->route('admin.order.index')
+                ->with('error', 'Only cancelled orders can be deleted.');
+        }
 
         if ($order->payment_proof && Storage::disk('public')->exists('orders/' . $order->payment_proof)) {
             Storage::disk('public')->delete('orders/' . $order->payment_proof);
@@ -96,6 +101,6 @@ class OrderController extends Controller
 
         $order->delete();
 
-        return redirect()->route('admin.order.index')->with('success', 'Deleted Order Succesfully');
+        return redirect()->route('admin.order.index')->with('success', 'Deleted Order Successfully');
     }
 }

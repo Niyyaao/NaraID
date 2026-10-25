@@ -39,7 +39,8 @@ class BuyerController extends Controller
      */
     public function show(string $id)
     {
-        $buyer = Buyer::findOrFail(decrypt($id));
+        $buyer = Buyer::with(['orders' => fn($q) => $q->with('album')->latest()])
+            ->findOrFail(decrypt($id));
 
         return view('pages.admin.buyer.show', compact('buyer'));
     }
@@ -66,6 +67,12 @@ class BuyerController extends Controller
     public function destroy(string $id)
     {
         $buyer = Buyer::findOrFail(decrypt($id));
+
+        if ($buyer->orders()->exists()) {
+            return redirect()->route('admin.buyer.index')
+                ->with('error', 'This buyer has order history and cannot be deleted.');
+        }
+
         $buyer->delete();
 
         return redirect()->route('admin.buyer.index')->with('success', 'Buyer Successfully Deleted');

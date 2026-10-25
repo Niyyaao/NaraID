@@ -31,7 +31,7 @@ class AlbumController extends Controller
             default      => $query->latest(),
         };
 
-        $albums  = $query->paginate(12)->withQueryString();
+        $albums  = $query->get();
         $artists = Album::select('artist_name')->distinct()->orderBy('artist_name')->pluck('artist_name');
 
         return view('pages.buyer.album.index', compact('albums', 'artists'));

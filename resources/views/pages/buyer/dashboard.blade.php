@@ -141,7 +141,7 @@
     <div class="rank-card mb-4">
         @forelse ($albumterlaris as $album)
             <div class="rank-item {{ $loop->first ? 'is-first' : '' }}">
-                <div class="rank-no {{ $loop->iteration <= 3 ? 'rank-' . $loop->iteration : '' }}">
+                <div class="rank-no {{ $loop->iteration <= 4 ? 'rank-' . $loop->iteration : '' }}">
                     @if ($loop->first)
                         <i class="fas fa-crown"></i>
                     @else

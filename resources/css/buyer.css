@@ -49,10 +49,14 @@
     padding-top: 4.75rem !important; 
 }
 
+.order-wrapper {
+    width: 98%;
+}
+
 /* layout (navbar&footer) */
 .topbar .navbar-nav .nav-link.active {
     color: #1e3a6e !important;
-   border-bottom: 2px solid #1e3a6e;
+    border-bottom: 2px solid #1e3a6e;
 }
 
 .topbar .navbar-nav .nav-link:hover {

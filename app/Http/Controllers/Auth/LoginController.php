@@ -48,7 +48,6 @@ class LoginController extends Controller
     public function logoutAdmin(Request $request)
     {
         Auth::guard('web')->logout();
-        $request->session()->invalidate();
         $request->session()->regenerateToken();
 
         return redirect('/')->with('success', 'Logout Successfully');
@@ -57,7 +56,6 @@ class LoginController extends Controller
     public function logoutBuyer(Request $request)
     {
         Auth::guard('buyer')->logout();
-        $request->session()->invalidate();
         $request->session()->regenerateToken();
 
         return redirect('/')->with('success', 'Logout Successfully');

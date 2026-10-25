@@ -16,7 +16,7 @@
             </div>
 
             <!-- Our Information -->
-            <div class="col-lg-6 ">
+            <div class="col-lg-6">
                 <div class="footer-contact">
                     <h4>Our Information</h4>
                     <div class="contact-item">
@@ -25,25 +25,44 @@
                         </div>
                         <div class="contact-info">
                             <p>
-                                Jl. Contoh No. 123<br>
-                                Purbalingga, Jawa Tengah
+                                Jl. Jenderal Sudirman No. 45<br>
+                                Purbalingga, Jawa Tengah 53311
                             </p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="bi bi-clock"></i>
+                        </div>
+                        <div class="contact-info">
+                            <p>Senin-Sabtu, 10.00-20.00 WIB</p>
                         </div>
                     </div>
                     <div class="contact-item">
                         <div class="contact-icon">
                             <i class="bi bi-telephone"></i>
                         </div>
-                        <div class="contact-info text-center">
-                            <p>+62 812-3456-7890</p>
+                        <div class="contact-info">
+                            <p>+62 856-9352-6592</p>
                         </div>
                     </div>
                     <div class="contact-item">
                         <div class="contact-icon">
                             <i class="bi bi-envelope"></i>
                         </div>
-                        <div class="contact-info text-center">
-                            <p>naralid@gmail.com</p>
+                        <div class="contact-info">
+                            <p>naraid@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="bi bi-bank"></i>
+                        </div>
+                        <div class="contact-info">
+                            <p>
+                                BCA 1234567890<br>
+                                a.n. PT Nara Kreasi Indonesia
+                            </p>
                         </div>
                     </div>
                 </div>

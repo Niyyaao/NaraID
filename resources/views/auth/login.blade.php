@@ -38,9 +38,15 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="password">Password</label>
-                                            <input type="password"
-                                                class="form-control form-control-user @error('password') is-invalid @enderror"
-                                                id="password" name="password" placeholder="Enter Password here">
+                                            <div class="password-wrapper">
+                                                <input type="password"
+                                                    class="form-control form-control-user @error('password') is-invalid @enderror"
+                                                    id="password" name="password" placeholder="Enter Password here">
+                                                <button type="button" class="toggle-password" data-target="password"
+                                                    aria-label="Tampilkan password">
+                                                    <i class="fa fa-eye"></i>
+                                                </button>
+                                            </div>
                                             @error('password')
                                             <div class="invalid-feedback d-block">
                                                 {{ $message }}

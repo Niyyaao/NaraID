@@ -36,7 +36,7 @@ class BuyerDashboardController extends Controller
             ->whereIn('orders.status', ['verified', 'ready_for_pickup', 'finished'])
             ->groupBy('albums.id')
             ->orderByDesc('total_terjual')
-            ->limit(4)
+            ->limit(5)
             ->get();
 
         // List Album Terbaru

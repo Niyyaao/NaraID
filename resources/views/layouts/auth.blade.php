@@ -21,6 +21,32 @@
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
     <style>
+        .password-wrapper {
+            position: relative;
+        }
+
+        .password-wrapper .form-control {
+            padding-right: 3rem;
+            background-image: none;
+            /* hilangin ikon error bawaan Bootstrap biar gak tabrakan */
+        }
+
+        .toggle-password {
+            position: absolute;
+            top: 50%;
+            right: 1rem;
+            transform: translateY(-50%);
+            border: 0;
+            background: transparent;
+            color: #858796;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .toggle-password:hover {
+            color: #4e73df;
+        }
+
         .regin-page {
             min-height: 100vh;
             background:
@@ -104,6 +130,23 @@
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
+
+    <script>
+    document.addEventListener('click', function (e) {
+        const btn = e.target.closest('.toggle-password');
+        if (!btn) return;
+
+        const input = document.getElementById(btn.dataset.target);
+        const icon = btn.querySelector('i');
+        if (!input) return;
+
+        const isHidden = input.type === 'password';
+        input.type = isHidden ? 'text' : 'password';
+        icon.classList.toggle('fa-eye', !isHidden);
+        icon.classList.toggle('fa-eye-slash', isHidden);
+        btn.setAttribute('aria-label', isHidden ? 'Sembunyikan password' : 'Tampilkan password');
+    });
+</script>
 
 </body>
 

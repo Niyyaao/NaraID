@@ -13,7 +13,7 @@
         </a>
     </div>
     <div class="row justify-content-center">
-        <div class="order-wrapper">
+        <div class="order-wrapper rounded">
             <div class="card shadow mb-4">
                 <div class="card-body buyer-order-content">
                     <form action="{{ route('buyer.order.store') }}" method="POST">

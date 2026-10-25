@@ -84,12 +84,13 @@
                 <span class="fa fa-times-circle"></span>
                 Cancel
             </a>
+            @if ($order->status === 'cancelled')
             <a href="javascript:void(0)"
-                onclick="handleDestroy('{{ route('admin.order.destroy', encrypt($order->id)) }}', @js('Order With ID : '. $order->id))"
+                onclick="handleDestroy('{{ route('admin.order.destroy', encrypt($order->id)) }}')"
                 class="btn btn-danger">
-                <span class="fa fa-trash"></span>
-                Delete
+                <span class="fa fa-trash"></span> Delete
             </a>
+            @endif
 
         </div>
 
@@ -104,4 +105,3 @@
 <hr>
 
 @endsection
-

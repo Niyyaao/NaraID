@@ -3,8 +3,30 @@
 @section('title', 'Order Page - Admin Dashboard')
 
 @section('content')
+
+    @php
+        $filters = [
+            null => 'All',
+            'awaiting_payment' => 'Waiting Payment',
+            'awaiting_verification' => 'Verifying',
+            'verified' => 'Paid',
+            'ready_for_pickup' => 'Ready for Pickup',
+            'finished' => 'Completed',
+            'cancelled' => 'Cancelled',
+        ];
+    @endphp
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 admin-page-title">Order Data List</h1>
+    </div>
+
+    <!-- Filter status -->
+    <div class="status-filter">
+        @foreach ($filters as $value => $label)
+            <a href="{{ route('admin.order.index', $value ? ['status' => $value] : []) }}"
+                class="status-pill {{ $status === $value ? 'active' : '' }} ">
+                {{ $label }}
+            </a>
+        @endforeach
     </div>
 
     <div class="admin-card">
@@ -48,11 +70,14 @@
                                     class="btn btn-link admin-action admin-action-edit p-0 mx-2">
                                     <span class="fa fa-edit"></span>
                                 </a>
-                                <a href="javascript:void(0)"
-                                    onclick="handleDestroy('{{ route('admin.order.destroy', encrypt($order->id)) }}', @js('Order With ID : ' . $order->id))"
-                                    class="btn btn-link admin-action admin-action-delete p-0 mx-2">
-                                    <span class="fa fa-trash"></span>
-                                </a>
+
+                                @if ($order->status === 'cancelled')
+                                    <a href="javascript:void(0)"
+                                        onclick="handleDestroy('{{ route('admin.order.destroy', encrypt($order->id)) }}', @js('Order With ID : ' . $order->id))"
+                                        class="btn btn-link admin-action admin-action-delete p-0 mx-2">
+                                        <span class="fa fa-trash"></span>
+                                    </a>
+                                @endif
                             </td>
                         </tr>
                     @endforeach

@@ -158,26 +158,41 @@
             }
         });
 
-        @if (session('success'))
-            Toast.fire({
-                icon: 'success',
-                title: @json(session('success'))
-            });
+        @if(session('success'))
+        Toast.fire({
+            icon: 'success',
+            title: @json(session('success'))
+        });
         @endif
 
-        @if ($errors->any())
-            Swal.fire({
-                icon: 'error',
-                title: 'Please check your input',
-                html: `<ul class="swal-error-list">{!! collect($errors->all())->map(fn($e) => '<li>' . e($e) . '</li>')->implode('') !!}</ul>`,
-                confirmButtonText: 'OK',
-                buttonsStyling: false,
-                customClass: {
-                    popup: 'swal-nara-popup',
-                    title: 'swal-nara-title',
-                    confirmButton: 'btn btn-primary px-4'
-                }
-            });
+        @if(session('error'))
+        Swal.fire({
+            icon: 'error',
+            title: 'Action failed',
+            text: @json(session('error')),
+            confirmButtonText: 'OK',
+            buttonsStyling: false,
+            customClass: {
+                popup: 'swal-nara-popup',
+                title: 'swal-nara-title',
+                confirmButton: 'btn btn-primary px-4'
+            }
+        });
+        @endif
+
+        @if($errors->any())
+        Swal.fire({
+            icon: 'error',
+            title: 'Please check your input',
+            html: `<ul class="swal-error-list">{!! collect($errors->all())->map(fn($e) => '<li>' . e($e) . '</li>')->implode('') !!}</ul>`,
+            confirmButtonText: 'OK',
+            buttonsStyling: false,
+            customClass: {
+                popup: 'swal-nara-popup',
+                title: 'swal-nara-title',
+                confirmButton: 'btn btn-primary px-4'
+            }
+        });
         @endif
     </script>
 

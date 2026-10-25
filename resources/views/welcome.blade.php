@@ -24,6 +24,35 @@
     <link href="https://fonts.googleapis.com" rel="preconnect" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Montserrat:wght@400;500;600;700&family=Lato:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const track = document.getElementById('albumCarousel');
+        const prev = document.getElementById('albumPrev');
+        const next = document.getElementById('albumNext');
+        if (!track) return;
+
+        const step = () => track.clientWidth * 0.8;
+
+        const toggle = () => {
+            prev.disabled = track.scrollLeft <= 5;
+            next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 5;
+        };
+
+        prev.addEventListener('click', () => track.scrollBy({
+            left: -step(),
+            behavior: 'smooth'
+        }));
+        next.addEventListener('click', () => track.scrollBy({
+            left: step(),
+            behavior: 'smooth'
+        }));
+        track.addEventListener('scroll', toggle, {
+            passive: true
+        });
+        window.addEventListener('resize', toggle);
+        toggle();
+    });
+</script>
 
 <body class="index-page">
 
@@ -131,6 +160,81 @@
             </div>
         </section>
         <!-- /About Section -->
+
+        <!-- Catalog Section -->
+        <section id="catalog" class="catalog section">
+            <div class="container section-title" data-aos="fade-up">
+                <span class="subtitle">Catalog</span>
+                <h2>Available Albums</h2>
+                <p>Browse our albums and check the details. Log in to place a pre-order.</p>
+            </div>
+
+            <div class="container" data-aos="fade-up" data-aos-delay="100">
+                @if ($albums->count())
+                <div class="album-carousel-wrap">
+                    <button type="button" class="carousel-nav carousel-nav--prev" id="albumPrev" aria-label="Previous">
+                        <i class="bi bi-chevron-left"></i>
+                    </button>
+
+                    <div class="album-carousel" id="albumCarousel">
+                        @foreach ($albums as $album)
+                        @php $soldOut = $album->stock <= 0; @endphp
+
+                            <div class="album-card {{ $soldOut ? 'is-soldout' : '' }}">
+                            <a href="{{ route('catalog.show', encrypt($album->id)) }}" class="album-card-cover">
+                                <img src="{{ asset('storage/albums/' . $album->image) }}"
+                                    onerror="this.src='{{ asset('images/default.png') }}'"
+                                    alt="{{ $album->title }}" loading="lazy">
+
+                                @if ($soldOut)
+                                <span class="album-card-badge badge-outstock">Sold Out</span>
+                                @elseif ($album->stock <= 5)
+                                    <span class="album-card-badge badge-lowstock">Only {{ $album->stock }} left</span>
+                                    @endif
+                            </a>
+
+                            <div class="album-card-body">
+                                <span class="album-card-artist">{{ $album->artist_name }}</span>
+                                <h3 class="album-card-title">{{ $album->title }}</h3>
+                                <div class="album-card-price">IDR {{ number_format($album->price, 0, ',', '.') }}</div>
+
+                                <div class="album-card-actions">
+                                    @if ($soldOut)
+                                    <span class="album-btn album-btn--disabled">
+                                        <i class="bi bi-slash-circle"></i> Sold Out
+                                    </span>
+                                    @else
+
+                                    <a href="{{ route('login') }}" class="album-btn album-btn--primary">
+                                        <i class="bi bi-bag"></i> Order
+                                    </a>
+
+                                    @endif
+
+                                    <a href="{{ route('catalog.show', encrypt($album->id)) }}"
+                                        class="album-btn album-btn--ghost" title="Detail">
+                                        <i class="bi bi-info-lg"></i>
+                                    </a>
+                                </div>
+                            </div>
+                    </div>
+                    @endforeach
+                </div>
+
+                <button type="button" class="carousel-nav carousel-nav--next" id="albumNext" aria-label="Next">
+                    <i class="bi bi-chevron-right"></i>
+                </button>
+            </div>
+            @else
+            <div class="album-empty">
+                <i class="bi bi-disc"></i>
+                <h5>No albums available yet</h5>
+                <p>Please check back soon.</p>
+            </div>
+            @endif
+            </div>
+        </section>
+        <!-- /Catalog Section -->
 
         <!-- How It Works Section -->
         <section id="features" class="features section">
@@ -376,8 +480,13 @@
                                 </a>
                             </li>
                             <li>
+                                <a href="#catalog">
+                                    <i class="bi bi-chevron-right"></i> Catalog
+                                </a>
+                            </li>
+                            <li>
                                 <a href="#features">
-                                    <i class="bi bi-chevron-right"></i> Features
+                                    <i class="bi bi-chevron-right"></i> How It Works
                                 </a>
                             </li>
                             <li>
@@ -404,9 +513,17 @@
                             </div>
                             <div class="contact-info">
                                 <p>
-                                    Jl. Contoh No. 123<br>
-                                    Purbalingga, Jawa Tengah
+                                    Jl. Jenderal Sudirman No. 45<br>
+                                    Purbalingga, Jawa Tengah 53311
                                 </p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="bi bi-clock"></i>
+                            </div>
+                            <div class="contact-info">
+                                <p>Senin-Sabtu, 10.00-20.00 WIB</p>
                             </div>
                         </div>
                         <div class="contact-item">
@@ -414,7 +531,7 @@
                                 <i class="bi bi-telephone"></i>
                             </div>
                             <div class="contact-info text-center">
-                                <p>+62 812-3456-7890</p>
+                                <p>+62 856-9352-6592</p>
                             </div>
                         </div>
                         <div class="contact-item">
@@ -422,9 +539,10 @@
                                 <i class="bi bi-envelope"></i>
                             </div>
                             <div class="contact-info text-center">
-                                <p>naralid@gmail.com</p>
+                                <p>naraid@gmail.com</p>
                             </div>
                         </div>
+                        
                     </div>
                 </div>
             </div>

@@ -15,6 +15,16 @@
     </div>
 
     <hr>
+    {{-- Artist chips --}}
+    <div class="artist-chips">
+        <a href="{{ request()->fullUrlWithQuery(['artist' => null, 'page' => null]) }}"
+            class="artist-chip {{ request('artist') ? '' : 'active' }}">All</a>
+
+        @foreach ($artists as $artist)
+            <a href="{{ request()->fullUrlWithQuery(['artist' => $artist, 'page' => null]) }}"
+                class="artist-chip {{ request('artist') === $artist ? 'active' : '' }}">{{ $artist }}</a>
+        @endforeach
+    </div>
 
     <div class="admin-card">
         <div class="card-body">

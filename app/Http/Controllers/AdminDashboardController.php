@@ -20,7 +20,7 @@ class AdminDashboardController extends Controller
         $totaladmins = User::count();
         $totalalbums = Album::count();
         $totalbuyers = Buyer::count();
-        $totalorders = Order::count();
+        $totalorders = Order::whereIn('status', ['verified', 'ready_for_pickup', 'finished' ])->count();
 
         $albumterlaris = Album::select('albums.*')
             ->selectRaw('SUM(orders.qty) as total_terjual')

@@ -54,7 +54,7 @@
     </div>
 
     <div class="album-result-bar">
-        <span>{{ $albums->total() }} album(s)</span>
+        <span>{{ $albums->count() }} album(s)</span>
         @if (request()->hasAny(['q', 'artist', 'min_price', 'max_price', 'in_stock', 'sort']))
             <a href="{{ route('buyer.album.index') }}"><i class="fas fa-times"></i> Clear filters</a>
         @endif
@@ -62,7 +62,7 @@
 
     {{-- Grid --}}
     @if ($albums->count())
-        <div class="album-grid">
+        <div class="album-grid mb-2">
             @foreach ($albums as $album)
                 @php $soldOut = $album->stock <= 0; @endphp
 
@@ -112,7 +112,4 @@
         </div>
     @endif
 
-    <div class="d-flex justify-content-center mt-4">
-        {{ $albums->links() }}
-    </div>
 @endsection

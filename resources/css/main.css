@@ -17,6 +17,9 @@
   --contrast-color: #FFFFFF;
   --border-color: #D7E0E7;
 
+  --nara-dark: #1e3a6e;
+  --nara-dark-hover: #16305c;
+
   scroll-behavior: smooth;
 }
 
@@ -89,6 +92,73 @@ h6 {
   color: var(--heading-color);
   font-family: var(--heading-font);
   margin: 0;
+}
+
+/* header halaman detail */
+.page-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.1rem 1.5rem;
+    margin-bottom: 1.25rem;
+    background-color: #eff3f9;
+    border: 1px solid var(--nara-line);
+    border-radius: 1rem;
+    box-shadow: 0 .25rem 1rem rgba(58, 59, 69, .08);
+}
+
+.page-head h1 {
+    margin: 0;
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--nara-dark);
+}
+
+.page-head p {
+    margin: .15rem 0 0;
+    font-size: .85rem;
+    color: #4a6491;
+}
+
+.page-head .btn-back {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    padding: .45rem 1.1rem;
+    border-radius: 50rem;
+    background: #fff;
+    border: 1px solid var(--nara-line);
+    color: var(--nara-dark);
+    font-size: .85rem;
+    font-weight: 700;
+    white-space: nowrap;
+    transition: background .2s, color .2s;
+}
+
+.page-head .btn-back:hover {
+    background: var(--nara-dark);
+    border-color: var(--nara-dark);
+    color: #fff;
+    text-decoration: none;
+}
+
+@media (max-width: 575px) {
+    .page-head {
+        padding: 1rem;
+    }
+
+    .page-head h1 {
+        font-size: 1.15rem;
+    }
+
+    .page-head .btn-back span {
+        display: none; /* di HP tombol back jadi ikon saja */
+    }
+
+    .page-head .btn-back i {
+        margin: 0;
+    }
 }
 
 /* =========================
@@ -331,6 +401,404 @@ section,
   .about {
     padding: 60px 0;
   }
+}
+
+
+/* =========================
+   CATALOG (ALBUM CAROUSEL)
+========================= */
+.catalog {
+  padding-top: 20px;
+}
+
+.album-carousel-wrap {
+  position: relative;
+}
+
+.album-carousel {
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  /* ruang untuk efek hover & shadow kartu */
+  padding: 10px 4px 28px;
+  margin: -10px -4px -12px;
+}
+
+.album-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.album-carousel .album-card {
+  flex: 0 0 calc((100% - 72px) / 4);
+  min-width: 0;
+  scroll-snap-align: start;
+}
+
+.carousel-nav {
+  position: absolute;
+  top: 38%;
+  transform: translateY(-50%);
+  z-index: 2;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid var(--border-color);
+  background: var(--surface-color);
+  color: var(--nara-dark);
+  box-shadow: 0 4px 14px rgba(23, 37, 54, 0.18);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, opacity 0.2s;
+}
+
+.carousel-nav:hover {
+  background: var(--nara-dark);
+  border-color: var(--nara-dark);
+  color: #fff;
+}
+
+.carousel-nav--prev { left: -18px; }
+.carousel-nav--next { right: -18px; }
+
+.carousel-nav:disabled {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* kartu album */
+.album-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  overflow: hidden;
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.album-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 30px rgba(23, 37, 54, 0.14);
+}
+
+.album-card-cover {
+  position: relative;
+  display: block;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: var(--background-color);
+}
+
+.album-card-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s;
+}
+
+.album-card:hover .album-card-cover img {
+  transform: scale(1.07);
+}
+
+.album-card-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 1;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+.badge-lowstock { background: #fdf0d9; color: #a86a10; }
+.badge-outstock { background: #fbe7e7; color: #d84343; }
+
+.album-card-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 14px 16px 16px;
+}
+
+.album-card-artist {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: var(--accent-color);
+}
+
+.album-card-title {
+  margin: 4px 0 8px;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--heading-color);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 2.7em;
+}
+
+.album-card-price {
+  margin-bottom: 14px;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--heading-color);
+}
+
+.album-card-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.album-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 9px 14px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.album-btn--primary {
+  flex: 1;
+  background: var(--nara-dark);
+  color: #fff;
+}
+
+.album-btn--primary:hover {
+  background: var(--nara-dark-hover);
+  color: #fff;
+}
+
+.album-btn--ghost {
+  width: 40px;
+  padding: 9px 0;
+  border-color: var(--border-color);
+  background: transparent;
+  color: #697783;
+}
+
+.album-btn--ghost:hover {
+  border-color: var(--nara-dark);
+  color: var(--nara-dark);
+}
+
+.album-btn--disabled {
+  flex: 1;
+  background: #e3e7eb;
+  color: #8a969f;
+  cursor: not-allowed;
+}
+
+.album-card.is-soldout .album-card-cover img {
+  filter: grayscale(1);
+  opacity: 0.6;
+}
+
+.album-card.is-soldout .album-card-title,
+.album-card.is-soldout .album-card-price {
+  color: #8a969f;
+}
+
+.album-empty {
+  padding: 4rem 1rem;
+  text-align: center;
+  background: var(--surface-color);
+  border: 1px dashed var(--border-color);
+  border-radius: 14px;
+  color: #8a969f;
+}
+
+.album-empty i {
+  font-size: 48px;
+  color: #c4ced6;
+}
+
+@media (max-width: 992px) {
+  .album-carousel .album-card {
+    flex-basis: calc((100% - 48px) / 3);
+  }
+}
+
+@media (max-width: 768px) {
+  .album-carousel {
+    gap: 12px;
+  }
+
+  /* 2 kartu + sedikit kartu ketiga mengintip, tanpa panah */
+  .album-carousel .album-card {
+    flex-basis: calc((100% - 12px) / 2.2);
+  }
+
+  .carousel-nav {
+    display: none;
+  }
+
+  .album-card-body { padding: 10px 12px 12px; }
+  .album-card-title { font-size: 13px; }
+  .album-card-price { font-size: 14px; margin-bottom: 10px; }
+  .album-btn { padding: 8px 10px; font-size: 12px; }
+}
+
+/* halaman detail katalog (landing) */
+/* =========================
+   ALBUM DETAIL (sama dengan buyer)
+========================= */
+.catalog-detail {
+  padding-top: 130px;
+  min-height: 80vh;
+}
+
+.buyer-detail-content {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+  padding: 2rem;
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.buyer-detail-image-wrap {
+  position: relative;
+  width: 450px;
+  aspect-ratio: 1/1;
+  margin-bottom: 0;
+  flex-shrink: 0;
+}
+
+.buyer-detail-image {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.buyer-detail-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.badge-instock { background-color: #e5f8ef; color: #1a9f5c; }
+
+.buyer-detail-info {
+  flex: 1;
+  max-width: 640px;
+}
+
+.buyer-detail-artist {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--default-color);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+  margin-top: 4px;
+}
+
+.buyer-detail-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--default-color);
+  margin: 0 0 12px;
+}
+
+.buyer-detail-price {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--accent-color);
+  margin-bottom: 16px;
+}
+
+.buyer-detail-stock {
+  background: #e7edf3;
+  display: inline-flex;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  width: fit-content;
+}
+
+.buyer-detail-stock span {
+  font-size: 15px;
+  color: #45607f;
+}
+
+.buyer-detail-desc {
+  margin-bottom: 24px;
+}
+
+.buyer-detail-desc span {
+  display: block;
+  font-weight: 600;
+  color: #172536;
+  margin-bottom: 6px;
+}
+
+.buyer-detail-desc p {
+  margin: 0;
+  color: #697783;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .catalog-detail { padding-top: 110px; }
+
+  .buyer-detail-content {
+    flex-direction: column;
+    gap: 20px;
+    padding: 1.25rem;
+  }
+
+  .buyer-detail-image-wrap {
+    width: 100%;
+    aspect-ratio: 1/1;
+    margin: 0 auto;
+  }
+
+  .buyer-detail-title { font-size: 20px; margin-bottom: 8px; }
+  .buyer-detail-price { font-size: 18px; margin-bottom: 12px; }
+  .buyer-detail-stock { padding: 6px 12px; margin-bottom: 16px; }
+  .buyer-detail-stock span { font-size: 13px; }
+  .buyer-detail-desc span { font-size: 14px; }
+  .buyer-detail-desc p { font-size: 13px; }
+}
+
+.catalog-detail {
+  padding-top: 130px;
+  min-height: 80vh;
+}
+
+@media (max-width: 768px) {
+  .catalog-detail { padding-top: 110px; }
 }
 
 /* =========================
