@@ -23,26 +23,26 @@ Route::group(
         'as' => 'admin.',
         'middleware' => 'auth:web',
     ],
-    function(){
-    //route untuk dashboard admin
-    Route::get('/', [App\Http\Controllers\AdminDashboardController::class, 'index']);
-    Route::get('/dashboard', [App\Http\Controllers\AdminDashboardController::class, 'index'])->name('dashboard');
+    function () {
+        //route untuk dashboard admin
+        Route::get('/', [App\Http\Controllers\AdminDashboardController::class, 'index']);
+        Route::get('/dashboard', [App\Http\Controllers\AdminDashboardController::class, 'index'])->name('dashboard');
 
-    // route halaman profile
-    Route::get('/profile', [App\Http\Controllers\Admin\ProfileController::class, 'index'])->name('profile');
-    Route::post('/profile', [App\Http\Controllers\Admin\ProfileController::class, 'save'])->name('profile.save');
+        // route halaman profile
+        Route::get('/profile', [App\Http\Controllers\Admin\ProfileController::class, 'index'])->name('profile');
+        Route::post('/profile', [App\Http\Controllers\Admin\ProfileController::class, 'save'])->name('profile.save');
 
-    //route halaman admin
-    Route::resource('/admin', App\Http\Controllers\Admin\AdminController::class);
+        //route halaman admin
+        Route::resource('/admin', App\Http\Controllers\Admin\AdminController::class);
 
-    // route halaman album
-    Route::resource('/album', App\Http\Controllers\Admin\AlbumController::class);
+        // route halaman album
+        Route::resource('/album', App\Http\Controllers\Admin\AlbumController::class);
 
-    // route untuk halaman pemesanan
-    Route::resource('/order', App\Http\Controllers\Admin\OrderController::class)->except(['create', 'store']);
+        // route untuk halaman pemesanan
+        Route::resource('/order', App\Http\Controllers\Admin\OrderController::class)->except(['create', 'store']);
 
-    // route untuk halaman buyer
-    Route::resource('/buyer', App\Http\Controllers\Admin\BuyerController::class)->only(['index', 'show', 'destroy']);
+        // route untuk halaman buyer
+        Route::resource('/buyer', App\Http\Controllers\Admin\BuyerController::class)->only(['index', 'show', 'destroy']);
     }
 );
 
@@ -53,37 +53,36 @@ Route::group(
         'as' => 'buyer.',
         'middleware' => 'auth:buyer',
     ],
-    function(){
-    //route untuk dashboard pembeli
-    Route::get('/', [App\Http\Controllers\BuyerDashboardController::class, 'index']);
-    Route::get('/dashboard', [App\Http\Controllers\BuyerDashboardController::class, 'index'])->name('dashboard');
+    function () {
+        //route untuk dashboard pembeli
+        Route::get('/', [App\Http\Controllers\BuyerDashboardController::class, 'index']);
+        Route::get('/dashboard', [App\Http\Controllers\BuyerDashboardController::class, 'index'])->name('dashboard');
 
-    // route halaman profile
-    Route::get('/profile', [App\Http\Controllers\Buyer\ProfileController::class, 'index'])->name('profile');
-    Route::post('/profile', [App\Http\Controllers\Buyer\ProfileController::class, 'save'])->name('profile.save');
+        // route halaman profile
+        Route::get('/profile', [App\Http\Controllers\Buyer\ProfileController::class, 'index'])->name('profile');
+        Route::post('/profile', [App\Http\Controllers\Buyer\ProfileController::class, 'save'])->name('profile.save');
 
-    // route halaman album
-    Route::resource('/album', App\Http\Controllers\Buyer\AlbumController::class)->only(['index', 'show']);
+        // route halaman album
+        Route::resource('/album', App\Http\Controllers\Buyer\AlbumController::class)->only(['index', 'show']);
 
-    // route halaman order
+        // route halaman order
         // order lewat halaman order
-    Route::get('/order/create', [App\Http\Controllers\Buyer\OrderController::class, 'create'])->name('order.create');
+        Route::get('/order/create', [App\Http\Controllers\Buyer\OrderController::class, 'create'])->name('order.create');
 
         // order lewat halaman album
-    Route::get('/order/create/{id}', [App\Http\Controllers\Buyer\OrderController::class, 'createFromAlbum'])->name('order.create.album');
+        Route::get('/order/create/{id}', [App\Http\Controllers\Buyer\OrderController::class, 'createFromAlbum'])->name('order.create.album');
 
-    Route::post('/order', [App\Http\Controllers\Buyer\OrderController::class, 'store'])->name('order.store');
+        Route::post('/order', [App\Http\Controllers\Buyer\OrderController::class, 'store'])->name('order.store');
 
-    Route::get('/order', [App\Http\Controllers\Buyer\OrderController::class, 'index'])->name('order.index');
+        Route::get('/order', [App\Http\Controllers\Buyer\OrderController::class, 'index'])->name('order.index');
 
-    Route::get('/order/{id}', [App\Http\Controllers\Buyer\OrderController::class, 'show'])->name('order.show');
+        Route::get('/order/{id}', [App\Http\Controllers\Buyer\OrderController::class, 'show'])->name('order.show');
 
-    // route untuk payment
-    Route::get('order/{id}/payment', [App\Http\Controllers\Buyer\OrderController::class, 'payment'])->name('order.payment');
-Route::post('order/{id}/payment', [App\Http\Controllers\Buyer\OrderController::class, 'uploadPayment'])->name('order.payment.upload');
-
+        // route untuk payment
+        Route::get('order/{id}/payment', [App\Http\Controllers\Buyer\OrderController::class, 'payment'])->name('order.payment');
+        Route::post('order/{id}/payment', [App\Http\Controllers\Buyer\OrderController::class, 'uploadPayment'])->name('order.payment.upload');
     }
-    
+
 );
 
 

@@ -205,7 +205,7 @@
                                     </span>
                                     @else
 
-                                    <a href="{{ route('login') }}" class="album-btn album-btn--primary">
+                                    <a href="{{ route('buyer.order.create.album', encrypt($album->id)) }}" class="album-btn album-btn--primary">
                                         <i class="bi bi-bag"></i> Order
                                     </a>
 
@@ -542,7 +542,7 @@
                                 <p>naraid@gmail.com</p>
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>

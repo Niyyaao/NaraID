@@ -26,7 +26,7 @@
         --default-color: #ffffff;
         --heading-color: #ffffff;
         background-color: #172536;
-        
+
     }
 </style>
 
@@ -78,8 +78,8 @@
 
                         <div class="buyer-actions">
                             @if ($album->stock > 0)
-                            <a href="{{ route('login') }}" class="album-btn album-btn--primary px-4 ">
-                                <i class="bi bi-box-arrow-in-right"></i> Login to Order
+                            <a href="{{ route('buyer.order.create.album', encrypt($album->id)) }}" class="album-btn album-btn--primary px-4">
+                                <i class="bi bi-bag"></i> Order
                             </a>
                             @else
                             <span class="album-btn album-btn--disabled">
