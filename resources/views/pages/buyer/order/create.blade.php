@@ -54,10 +54,11 @@
                                     </option>
                                     @foreach ($albums as $album)
                                         <option value="{{ $album->id }}" data-price="{{ $album->price }}"
-                                            data-title="{{ $album->title }}"
+                                            data-stock="{{ $album->stock }}" data-title="{{ $album->title }}"
                                             data-image="{{ $album->image ? asset('storage/albums/' . $album->image) : '' }}"
+                                            {{ $album->stock <= 0 ? 'disabled' : '' }}
                                             {{ old('album_id') == $album->id ? 'selected' : '' }}>
-                                            {{ $album->title }}
+                                            {{ $album->title }}{{ $album->stock <= 0 ? ' (Sold Out)' : '' }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -82,6 +83,19 @@
                             <div class="order-item-body">
                                 <div class="order-item-title" id="albumTitle">
                                     {{ isset($fromalbum) ? $fromalbum->title : 'No album selected' }}
+                                </div>
+                                <div class="order-item-stock" id="albumStock">
+                                    @if (isset($fromalbum))
+                                        @if ($fromalbum->stock <= 0)
+                                            <span class="text-danger">Sold Out</span>
+                                        @elseif ($fromalbum->stock <= 5)
+                                            <span class="text-danger">Only {{ $fromalbum->stock }} left</span>
+                                        @else
+                                            Stock: {{ $fromalbum->stock }} pcs
+                                        @endif
+                                    @else
+                                        Stock: -
+                                    @endif
                                 </div>
                                 <div class="order-item-price" id="albumPrice">
                                     @if (isset($fromalbum))
@@ -109,7 +123,8 @@
                         </div>
 
                         <div class="d-flex justify-content-center buyer-actions">
-                            <button type="submit" class="btn btn-primary px-3 mr-2"><span class="fas fa-shopping-bag"></span>
+                            <button type="submit" id="orderBtn" class="btn btn-primary px-3 mr-2"><span
+                                    class="fas fa-shopping-bag"></span>
                                 Order Now</button>
 
                             <a href="{{ route('buyer.order.index') }}" class="btn btn-secondary px-4">
@@ -130,16 +145,27 @@
             const qtyInput = document.getElementById('qty');
             const totalEl = document.getElementById('total');
             const select = document.getElementById('album');
+            const stockEl = document.getElementById('albumStock');
+            const orderBtn = document.getElementById('orderBtn');
+
+            const stockText = (stock) => {
+                if (stock <= 0) return '<span class="text-danger">Sold Out</span>';
+                if (stock <= 5) return `<span class="text-danger">Only ${stock} left</span>`;
+                return `Stock: ${stock} pcs`;
+            };
 
             function updateOrder() {
                 let price = 0;
+                let stock = 0;
 
                 @if (isset($fromalbum))
                     price = {{ (int) $fromalbum->price }};
+                    stock = {{ (int) $fromalbum->stock }};
                 @else
                     if (select) {
                         const opt = select.options[select.selectedIndex];
                         price = parseInt(opt.dataset.price || 0);
+                        stock = parseInt(opt.dataset.stock || 0);
 
                         const titleEl = document.getElementById('albumTitle');
                         const priceEl = document.getElementById('albumPrice');
@@ -148,6 +174,7 @@
 
                         if (titleEl) titleEl.innerText = opt.dataset.title || 'No album selected';
                         if (priceEl) priceEl.innerText = fmt(price);
+                        if (stockEl) stockEl.innerHTML = opt.value ? stockText(stock) : 'Stock: -';
 
                         if (img && placeholder) {
                             if (opt.dataset.image) {
@@ -161,6 +188,17 @@
                         }
                     }
                 @endif
+
+                // batasi qty sesuai stok
+                if (stock > 0) {
+                    qtyInput.max = stock;
+                    if (parseInt(qtyInput.value) > stock) qtyInput.value = stock;
+                } else {
+                    qtyInput.removeAttribute('max');
+                }
+
+                // tombol mati kalau belum pilih album atau stok habis
+                if (orderBtn) orderBtn.disabled = stock <= 0;
 
                 const qty = parseInt(qtyInput.value) || 0;
                 totalEl.innerText = fmt(price * qty);

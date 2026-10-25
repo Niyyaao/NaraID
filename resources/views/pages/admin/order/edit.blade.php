@@ -100,6 +100,17 @@
                             @enderror
                         </div>
                     </div>
+                    <div class="admin-form-group" id="cancelReasonGroup" style="display: none;">
+                        <label for="cancel_reason" class="form-label">Cancel Reason</label>
+                        <div class="admin-form-input">
+                            <textarea name="cancel_reason" id="cancel_reason" rows="3"
+                                class="form-control @error('cancel_reason') is-invalid @enderror"
+                                placeholder="Explain why this order is cancelled">{{ old('cancel_reason') }}</textarea>
+                            @error('cancel_reason')
+                            <div class="invalid-feedback d-block"><span>{{ $message }}</span></div>
+                            @enderror
+                        </div>
+                    </div>
                     <div class="admin-form-group">
                         @if ($order->payment_proof)
                         <div class="mb-2">
@@ -126,6 +137,13 @@
         </div>
     </div>
 </div>
-<hr>
-
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const status = document.getElementById('status');
+        const group = document.getElementById('cancelReasonGroup');
+        const toggle = () => group.style.display = status.value === 'cancelled' ? '' : 'none';
+        status.addEventListener('change', toggle);
+        toggle();
+    });
+</script>
 @endsection

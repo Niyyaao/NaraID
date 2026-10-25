@@ -63,6 +63,9 @@ class OrderController extends Controller
 
         $request->validate([
             'status' => 'required|in:awaiting_payment,awaiting_verification,verified,ready_for_pickup,finished,cancelled',
+            'cancel_reason' => 'required_if:status,cancelled|nullable|string|min:5|max:500',
+        ], [
+            'cancel_reason.required_if' => 'Cancel reason is required when cancelling an order.',
         ]);
 
         // order cancelled dikunci supaya tidak "hidup" lagi tanpa memotong stok
@@ -71,7 +74,7 @@ class OrderController extends Controller
         }
 
         if ($request->status === 'cancelled') {
-            if (! $order->cancel()) {
+            if (! $order->cancel(['awaiting_payment', 'awaiting_verification'], 'admin', $request->cancel_reason)) {
                 return back()->withErrors(['status' => 'This order can no longer be cancelled.']);
             }
         } else {

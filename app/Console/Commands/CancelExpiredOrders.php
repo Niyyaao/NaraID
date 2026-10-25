@@ -18,7 +18,7 @@ class CancelExpiredOrders extends Command
         Order::where('status', 'awaiting_payment')
             ->where('created_at', '<', now()->subDay())
             ->each(function ($order) use (&$count) {
-                if ($order->cancel(['awaiting_payment'])) {
+                if ($order->cancel(['awaiting_payment'], 'system', 'Not paid within 24 hours')) {
                     $count++;
                 }
             });

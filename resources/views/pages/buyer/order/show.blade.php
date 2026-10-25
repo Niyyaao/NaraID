@@ -58,29 +58,40 @@
             </div>
         @endif
 
-        {{-- Status note --}}
+        {{-- Status note (kalau cancelled, alasan ikut di kotak yang sama) --}}
         @if (isset($statusNotes[$order->status]))
-            <div class="order-note order-note--{{ $order->status }}">
-                <i class="fas fa-info-circle"></i>
-                <span>{{ $statusNotes[$order->status] }}</span>
+            <div class="order-note order-note--{{ $order->status }} d-block">
+                <div class="d-flex align-items-start">
+                    <i class="fas fa-info-circle mr-2"></i>
+                    <span>{{ $statusNotes[$order->status] }}</span>
+                </div>
+
+                @if ($order->status === 'cancelled' && $order->cancel_reason)
+                    <div class="d-flex align-items-start mt-1">
+                        <i class="fas fa-comment-alt mr-2"></i>
+                        <span><strong>Reason:</strong> {{ $order->cancel_reason }}</span>
+                    </div>
+                @endif
             </div>
         @endif
 
-        {{-- Refund info --}}
-        @if ($order->status === 'cancelled' && $order->payment_proof)
-            <div class="order-note order-note--cancelled">
-                <i class="fas fa-undo"></i>
-                <span>
-                    Your payment will be refunded within <strong>1x24 hours</strong>.
-                    If it hasn't arrived yet, please contact us at <strong>+62 856-9352-6592</strong>
-                    or <strong>naraid@gmail.com</strong>.
-                </span>
-            </div>
-        @elseif ($order->status === 'cancelled')
-            <div class="order-note order-note--cancelled">
-                <i class="fas fa-info-circle"></i>
-                <span>No payment was made for this order, so no refund is needed.</span>
-            </div>
+        {{-- Refund info (selalu muncul untuk pesanan cancelled) --}}
+        @if ($order->status === 'cancelled')
+            @if ($order->payment_proof)
+                <div class="order-note order-note--refund">
+                    <i class="fas fa-undo"></i>
+                    <span>
+                        Your payment will be refunded within <strong>1x24 hours</strong>.
+                        If it hasn't arrived yet, please contact us at <strong>+62 856-9352-6592</strong>
+                        or <strong>naraid@gmail.com</strong>.
+                    </span>
+                </div>
+            @else
+                <div class="order-note order-note--refund">
+                    <i class="fas fa-info-circle"></i>
+                    <span>No payment was made for this order, so no refund is needed.</span>
+                </div>
+            @endif
         @endif
 
         {{-- Pickup info --}}

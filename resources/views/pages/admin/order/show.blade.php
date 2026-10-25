@@ -50,6 +50,23 @@
             <label>Status</label>
             <input type="text" value="{{ ucfirst(str_replace('_', ' ', $order->status)) }}" readonly>
         </div>
+        
+        @if ($order->status === 'cancelled')
+        <div class="admin-detail-row">
+            <label>Cancel Reason</label>
+            <input type="text" value="{{ $order->cancel_reason ?? '-' }}" readonly>
+        </div>
+
+        <div class="admin-detail-row">
+            <label>Cancelled By</label>
+            <input type="text" value="{{ ucfirst($order->cancelled_by ?? '-') }}" readonly>
+        </div>
+
+        <div class="admin-detail-row">
+            <label>Cancelled At</label>
+            <input type="text" value="{{ $order->cancelled_at ?? '-' }}" readonly>
+        </div>
+        @endif
 
         <div class="admin-detail-row">
             <label>Created At</label>
