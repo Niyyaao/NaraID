@@ -6,6 +6,7 @@ use App\Models\Order;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 
 class OrderController extends Controller
 {
@@ -60,12 +61,25 @@ class OrderController extends Controller
     public function update(Request $request, string $id)
     {
         $order = Order::findOrFail(decrypt($id));
+        $isCancel = $request->status === 'cancelled';
 
         $request->validate([
             'status' => 'required|in:awaiting_payment,awaiting_verification,verified,ready_for_pickup,finished,cancelled',
-            'cancel_reason' => 'required_if:status,cancelled|nullable|string|min:5|max:500',
+            'cancel_reason_option' => [
+                Rule::requiredIf($isCancel),
+                'nullable',
+                Rule::in([...Order::ADMIN_CANCEL_REASONS, 'other']),
+            ],
+            'cancel_reason_other' => [
+                Rule::requiredIf($isCancel && $request->cancel_reason_option === 'other'),
+                'nullable',
+                'string',
+                'min:5',
+                'max:500',
+            ],
         ], [
-            'cancel_reason.required_if' => 'Cancel reason is required when cancelling an order.',
+            'cancel_reason_option.required' => 'Please choose a cancel reason.',
+            'cancel_reason_other.required'  => 'Please write the cancel reason.',
         ]);
 
         // order cancelled dikunci supaya tidak "hidup" lagi tanpa memotong stok
@@ -73,8 +87,12 @@ class OrderController extends Controller
             return back()->withErrors(['status' => 'A cancelled order can no longer be changed.']);
         }
 
-        if ($request->status === 'cancelled') {
-            if (! $order->cancel(['awaiting_payment', 'awaiting_verification'], 'admin', $request->cancel_reason)) {
+        if ($isCancel) {
+            $reason = $request->cancel_reason_option === 'other'
+                ? trim($request->cancel_reason_other)
+                : $request->cancel_reason_option;
+
+            if (! $order->cancel(['awaiting_payment', 'awaiting_verification'], 'admin', $reason)) {
                 return back()->withErrors(['status' => 'This order can no longer be cancelled.']);
             }
         } else {

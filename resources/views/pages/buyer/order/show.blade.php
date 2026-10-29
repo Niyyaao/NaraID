@@ -181,8 +181,20 @@
 
         </div>
         @if (in_array($order->status, ['awaiting_payment', 'awaiting_verification']))
-            <a href="{{ route('buyer.order.payment', encrypt($order->id)) }}"
-                class="btn btn-sm btn-primary my-2 px-4">Pay</a>
+            <div class="my-2">
+                <a href="{{ route('buyer.order.payment', encrypt($order->id)) }}"
+                    class="btn btn-sm btn-primary px-4 mr-2">Pay</a>
+
+                <button type="button" class="btn btn-sm btn-outline-danger px-4" data-toggle="modal"
+                    data-target="#cancelOrderModal" data-action="{{ route('buyer.order.cancel', encrypt($order->id)) }}"
+                    data-album="{{ $order->album?->title ?? '-' }}"
+                    data-total="IDR {{ number_format($order->total, 0, ',', '.') }}"
+                    data-paid="{{ $order->payment_proof ? 1 : 0 }}">
+                    Cancel Order
+                </button>
+            </div>
+
+            @include('pages.partials.buyer-cancel-modal')
         @endif
     </div>
 

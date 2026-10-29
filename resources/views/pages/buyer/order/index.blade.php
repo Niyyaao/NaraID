@@ -32,7 +32,7 @@
             <i class="fas fa-plus mr-1"></i> Make New Order
         </a>
     </div>
-    
+
     <!-- Filter status -->
     <div class="status-filter">
         @foreach ($filters as $value => $label)
@@ -81,12 +81,22 @@
 
                             <td class="text-center">
                                 <a href="{{ route('buyer.order.show', encrypt($order->id)) }}"
-                                    class="btn btn-sm btn-outline-primary">
+                                    class="btn btn-sm btn-outline-primary" title="Detail">
                                     <span class="fa fa-search"></span>
                                 </a>
+
                                 @if (in_array($order->status, ['awaiting_payment', 'awaiting_verification']))
                                     <a href="{{ route('buyer.order.payment', encrypt($order->id)) }}"
                                         class="btn btn-sm btn-primary">Pay</a>
+
+                                    <button type="button" class="btn btn-sm btn-outline-danger" title="Cancel Order"
+                                        data-toggle="modal" data-target="#cancelOrderModal"
+                                        data-action="{{ route('buyer.order.cancel', encrypt($order->id)) }}"
+                                        data-album="{{ $order->album?->title ?? '-' }}"
+                                        data-total="IDR {{ number_format($order->total, 0, ',', '.') }}"
+                                        data-paid="{{ $order->payment_proof ? 1 : 0 }}">
+                                        <span class="fa fa-times"></span>
+                                    </button>
                                 @endif
                             </td>
                         </tr>
@@ -102,5 +112,7 @@
             </table>
         </div>
     </div>
+
+    @include('pages.partials.buyer-cancel-modal')
 
 @endsection

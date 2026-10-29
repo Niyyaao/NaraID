@@ -101,14 +101,13 @@
                         </div>
                     </div>
                     <div class="admin-form-group" id="cancelReasonGroup" style="display: none;">
-                        <label for="cancel_reason" class="form-label">Cancel Reason</label>
+                        <label class="form-label">Cancel Reason</label>
                         <div class="admin-form-input">
-                            <textarea name="cancel_reason" id="cancel_reason" rows="3"
-                                class="form-control @error('cancel_reason') is-invalid @enderror"
-                                placeholder="Explain why this order is cancelled">{{ old('cancel_reason') }}</textarea>
-                            @error('cancel_reason')
-                            <div class="invalid-feedback d-block"><span>{{ $message }}</span></div>
-                            @enderror
+                            @include('pages.partials.cancel-reason', [
+                            'reasons' => \App\Models\Order::ADMIN_CANCEL_REASONS,
+                            'required' => false,
+                            'showLabel' => false,
+                            ])
                         </div>
                     </div>
                     <div class="admin-form-group">

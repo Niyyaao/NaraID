@@ -118,4 +118,25 @@ class OrderController extends Controller
 
         return redirect()->route('buyer.order.index')->with('success', 'Payment proof uploaded. Please wait for admin verification.');
     }
+
+    public function cancel(Request $request, string $id)
+    {
+        $request->validate([
+            'cancel_reason' => 'nullable|string|max:500',
+        ]);
+
+        // hanya pesanan milik pembeli yang login
+        $order = Order::where('buyer_id', auth('buyer')->id())
+            ->findOrFail(decrypt($id));
+
+        $reason = $request->cancel_reason ?: 'Cancelled by buyer';
+
+        if (! $order->cancel(['awaiting_payment', 'awaiting_verification'], 'buyer', $reason)) {
+            return back()->with('error', 'This order can no longer be cancelled.');
+        }
+
+        return redirect()
+            ->route('buyer.order.show', encrypt($order->id))
+            ->with('success', 'Your order has been cancelled.');
+    }
 }

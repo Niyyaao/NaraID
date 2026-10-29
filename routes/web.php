@@ -81,6 +81,9 @@ Route::group(
         // route untuk payment
         Route::get('order/{id}/payment', [App\Http\Controllers\Buyer\OrderController::class, 'payment'])->name('order.payment');
         Route::post('order/{id}/payment', [App\Http\Controllers\Buyer\OrderController::class, 'uploadPayment'])->name('order.payment.upload');
+
+        // route cancel order
+        Route::post('order/{id}/cancel', [App\Http\Controllers\Buyer\OrderController::class, 'cancel'])->name('order.cancel');
     }
 
 );

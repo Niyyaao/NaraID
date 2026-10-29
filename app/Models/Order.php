@@ -7,6 +7,10 @@ use Illuminate\Support\Facades\DB;
 
 class Order extends Model
 {
+    public const BUYER_CANCEL_REASONS = ['I changed my mind', 'I ordered the wrong album or quantity', 'I found a better price elsewhere', 'I cannot complete the payment in time', 'I had a problem with the payment'];
+
+    public const ADMIN_CANCEL_REASONS = ['Payment was not received', 'Payment proof is invalid or unclear', 'Album is no longer available', 'Duplicate or mistaken order', 'Requested by the buyer'];
+
     protected $fillable = ['buyer_id', 'album_id', 'qty', 'total', 'status', 'payment_proof', 'cancel_reason', 'cancelled_by', 'cancelled_at'];
 
     public function buyer()

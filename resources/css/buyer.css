@@ -1630,6 +1630,50 @@ html, body {
     color: #fff;
 }
 
+/* cancel */
+.cancel-modal {
+    border: 0;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.cancel-modal-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto;
+    border-radius: 50%;
+    background: #fdecec;
+    color: #e74a3b;
+    font-size: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cancel-modal-summary {
+    background: #f8f9fc;
+    border-radius: 10px;
+    padding: 12px 14px;
+}
+
+.cancel-modal-summary>div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cancel-modal-summary>div+div {
+    margin-top: 6px;
+}
+
+.cancel-modal-refund {
+    background: #eef4ff;
+    color: #1f3f73;
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 13px;
+}
+
 
 /* =========================================
    NEW ORDER CARD
