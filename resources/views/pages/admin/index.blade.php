@@ -24,6 +24,7 @@
                         <th>NO</th>
                         <th>NAME</th>
                         <th>EMAIL</th>
+                        <th>ROLE</th>
                         <th>ACTION</th>
                     </tr>
                 </thead>
@@ -34,22 +35,35 @@
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
                             <td>
+                                <span class="badge badge-{{ $user->isOwner() ? 'warning' : 'secondary' }}">
+                                    {{ $user->isOwner() ? 'Owner' : 'Admin' }}
+                                </span>
+                            </td>
+                            <td>
+                                @php
+                                    $isSelf = $user->id === auth('web')->id();
+                                    $locked = $user->isOwner() && !$isSelf; 
+                                @endphp
+
                                 <a href="{{ route('admin.admin.show', encrypt($user->id)) }}"
                                     class="btn btn-link admin-action admin-action-view p-0 mx-2">
                                     <span class="fa fa-search"></span>
                                 </a>
-                                <a href="{{ route('admin.admin.edit', encrypt($user->id)) }}"
-                                    class="btn btn-link admin-action admin-action-edit p-0 mx-2">
-                                    <span class="fa fa-edit"></span>
-                                </a>
-                                @if ($user->id !== auth('web')->id())
+
+                                @unless ($locked)
+                                    <a href="{{ route('admin.admin.edit', encrypt($user->id)) }}"
+                                        class="btn btn-link admin-action admin-action-edit p-0 mx-2">
+                                        <span class="fa fa-edit"></span>
+                                    </a>
+                                @endunless
+
+                                @if (!$user->isOwner() && !$isSelf)
                                     <a href="javascript:void(0)"
-                                        onclick="handleDestroy('{{ route('admin.admin.destroy', encrypt($user->id)) }}', @js('Admin : '. $user->name))"
+                                        onclick="handleDestroy('{{ route('admin.admin.destroy', encrypt($user->id)) }}', @js('Admin : ' . $user->name))"
                                         class="btn btn-link admin-action admin-action-delete p-0 mx-2">
                                         <span class="fa fa-trash"></span>
                                     </a>
                                 @endif
-
                             </td>
                         </tr>
                     @endforeach

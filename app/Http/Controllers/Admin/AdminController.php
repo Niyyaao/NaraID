@@ -60,6 +60,12 @@ class AdminController extends Controller
     public function edit(string $id)
     {
         $user = User::findOrFail(decrypt($id));
+
+        if ($this->isProtected($user)) {
+            return redirect()->route('admin.admin.index')
+                ->with('error', 'Only the owner can edit the owner account.');
+        }
+
         return view('pages.admin.edit', compact('user'));
     }
 
@@ -69,6 +75,11 @@ class AdminController extends Controller
     public function update(Request $request, string $id)
     {
         $user = User::findOrFail(decrypt($id));
+
+        if ($this->isProtected($user)) {
+            return redirect()->route('admin.admin.index')
+                ->with('error', 'Only the owner can edit the owner account.');
+        }
 
         $request->validate([
             'name' => 'required|string|max:225',
@@ -98,11 +109,16 @@ class AdminController extends Controller
     {
         $user = User::findOrFail(decrypt($id));
 
+        if ($user->isOwner()) {
+            return redirect()->route('admin.admin.index')
+                ->with('error', 'The owner account cannot be deleted.');
+        }
+
         if ($user->id === auth('web')->id()) {
             return redirect()->route('admin.admin.index')
                 ->with('error', 'You cannot delete your own account.');
         }
-        
+
         if (User::count() <= 1) {
             return redirect()->route('admin.admin.index')
                 ->with('error', 'At least one admin must remain.');
@@ -112,5 +128,10 @@ class AdminController extends Controller
 
         return redirect()->route('admin.admin.index')
             ->with('success', 'Admin Successfully Deleted.');
+    }
+
+    private function isProtected(User $target): bool
+    {
+        return $target->isOwner() && $target->id !== auth('web')->id();
     }
 }

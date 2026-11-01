@@ -27,6 +27,11 @@
             </div>
 
             <div class="admin-detail-row">
+                <label>Role</label>
+                <input type="text" value="{{ $user->isOwner() ? 'Owner' : 'Admin' }}" readonly>
+            </div>
+
+            <div class="admin-detail-row">
                 <label>Created At</label>
                 <input type="text" value="{{ $user->created_at }}" readonly>
             </div>
@@ -49,11 +54,10 @@
                     Cancel
                 </a>
 
-                @if ($user->id !== auth('web')->id())
-                    <a href="javascript:void(0)"
-                        onclick="handleDestroy('{{ route('admin.admin.destroy', encrypt($user->id)) }}', @js('Admin :'. $user->name))"
-                        class="btn btn-link admin-action admin-action-delete p-0 mx-2">
-                        <span class="fa fa-trash"></span>
+                @if (!$user->isOwner() || $user->id === auth('web')->id())
+                    <a href="{{ route('admin.admin.edit', encrypt($user->id)) }}" class="btn btn-primary">
+                        <span class="fa fa-edit"></span>
+                        Edit
                     </a>
                 @endif
             </div>

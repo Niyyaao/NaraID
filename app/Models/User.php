@@ -29,4 +29,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function isOwner(): bool
+    {
+        return (int) $this->id === 1;
+    }
 }
