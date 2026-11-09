@@ -108,7 +108,7 @@
 
                     <div class="pickup-card-meta">
                         <span><i class="far fa-clock"></i> Mon – Sat, 10:00 – 20:00</span>
-                        <span><i class="fas fa-phone-alt"></i> 0812-3456-7890</span>
+                        <span><i class="fas fa-phone-alt"></i> +62 856-9352-6592</span>
                     </div>
 
                     <small>Please show your Order ID <b>#{{ $order->id }}</b> when picking up.</small>

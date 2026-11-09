@@ -116,13 +116,18 @@
                         <h4>Navigation</h4>
                         <ul>
                             <li>
-                                <a href="#about">
+                                <a href="{{ route('landing') }}#about">
                                     <i class="bi bi-chevron-right"></i> About
                                 </a>
                             </li>
                             <li>
-                                <a href="#features">
-                                    <i class="bi bi-chevron-right"></i> Features
+                                <a href="{{ route('landing') }}#catalog">
+                                    <i class="bi bi-chevron-right"></i> Catalog
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('landing') }}#features">
+                                    <i class="bi bi-chevron-right"></i> How It Works
                                 </a>
                             </li>
                             <li>
@@ -145,12 +150,20 @@
                         <h4>Our Information</h4>
                         <div class="contact-item">
                             <div class="contact-icon">
+                                <i class="bi bi-clock"></i>
+                            </div>
+                            <div class="contact-info">
+                                <p>Senin-Sabtu, 10.00-20.00 WIB</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
                                 <i class="bi bi-geo-alt"></i>
                             </div>
                             <div class="contact-info">
                                 <p>
-                                    Jl. Contoh No. 123<br>
-                                    Purbalingga, Jawa Tengah
+                                    Jl. Jenderal Sudirman No. 45<br>
+                                    Purbalingga, Jawa Tengah 53311
                                 </p>
                             </div>
                         </div>

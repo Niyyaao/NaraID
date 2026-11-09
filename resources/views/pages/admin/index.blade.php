@@ -7,12 +7,14 @@
         <h1 class="h3 mb-0 admin-page-title">Admin Data List</h1>
     </div>
 
-    <div class="admin-actions">
-        <a href="{{ route('admin.admin.create') }}" class="btn btn-primary">
-            <span class="fa fa-plus-circle"></span>
-            <span>Create New</span>
-        </a>
-    </div>
+    @if (auth('web')->user()->isOwner())
+        <div class="admin-actions">
+            <a href="{{ route('admin.admin.create') }}" class="btn btn-primary">
+                <span class="fa fa-plus-circle"></span>
+                <span>Create New</span>
+            </a>
+        </div>
+    @endif
 
     <hr>
 
@@ -35,14 +37,13 @@
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
                             <td>
-                                <span class="badge badge-{{ $user->isOwner() ? 'warning' : 'secondary' }}">
+                                <span class="badge-role {{ $user->isOwner() ? 'badge-role--owner' : 'badge-role--admin' }}">
                                     {{ $user->isOwner() ? 'Owner' : 'Admin' }}
                                 </span>
                             </td>
                             <td>
                                 @php
-                                    $isSelf = $user->id === auth('web')->id();
-                                    $locked = $user->isOwner() && !$isSelf; 
+                                    $viewerIsOwner = auth('web')->user()->isOwner();
                                 @endphp
 
                                 <a href="{{ route('admin.admin.show', encrypt($user->id)) }}"
@@ -50,14 +51,14 @@
                                     <span class="fa fa-search"></span>
                                 </a>
 
-                                @unless ($locked)
+                                @if ($viewerIsOwner)
                                     <a href="{{ route('admin.admin.edit', encrypt($user->id)) }}"
                                         class="btn btn-link admin-action admin-action-edit p-0 mx-2">
                                         <span class="fa fa-edit"></span>
                                     </a>
-                                @endunless
+                                @endif
 
-                                @if (!$user->isOwner() && !$isSelf)
+                                @if ($viewerIsOwner && !$user->isOwner())
                                     <a href="javascript:void(0)"
                                         onclick="handleDestroy('{{ route('admin.admin.destroy', encrypt($user->id)) }}', @js('Admin : ' . $user->name))"
                                         class="btn btn-link admin-action admin-action-delete p-0 mx-2">

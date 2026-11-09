@@ -92,7 +92,7 @@ class OrderController extends Controller
                 ? trim($request->cancel_reason_other)
                 : $request->cancel_reason_option;
 
-            if (! $order->cancel(['awaiting_payment', 'awaiting_verification'], 'admin', $reason)) {
+            if (! $order->cancel(['awaiting_payment', 'awaiting_verification', 'verified'], 'admin', $reason)) {
                 return back()->withErrors(['status' => 'This order can no longer be cancelled.']);
             }
         } else {

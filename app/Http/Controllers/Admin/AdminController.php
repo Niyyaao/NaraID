@@ -22,6 +22,7 @@ class AdminController extends Controller
      */
     public function create()
     {
+        if ($deny = $this->denyUnlessOwner()) return $deny;
         return view('pages.admin.create');
     }
 
@@ -30,6 +31,8 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
+        if ($deny = $this->denyUnlessOwner()) return $deny;
+
         $request->validate([
             'name' => 'required|string|max:225',
             'email' => 'required|string|email|max:225|unique:users,email',
@@ -59,12 +62,9 @@ class AdminController extends Controller
      */
     public function edit(string $id)
     {
-        $user = User::findOrFail(decrypt($id));
+        if ($deny = $this->denyUnlessOwner()) return $deny;
 
-        if ($this->isProtected($user)) {
-            return redirect()->route('admin.admin.index')
-                ->with('error', 'Only the owner can edit the owner account.');
-        }
+        $user = User::findOrFail(decrypt($id));
 
         return view('pages.admin.edit', compact('user'));
     }
@@ -74,12 +74,9 @@ class AdminController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $user = User::findOrFail(decrypt($id));
+        if ($deny = $this->denyUnlessOwner()) return $deny;
 
-        if ($this->isProtected($user)) {
-            return redirect()->route('admin.admin.index')
-                ->with('error', 'Only the owner can edit the owner account.');
-        }
+        $user = User::findOrFail(decrypt($id));
 
         $request->validate([
             'name' => 'required|string|max:225',
@@ -107,16 +104,12 @@ class AdminController extends Controller
      */
     public function destroy(string $id)
     {
+        if ($deny = $this->denyUnlessOwner()) return $deny;
         $user = User::findOrFail(decrypt($id));
 
         if ($user->isOwner()) {
             return redirect()->route('admin.admin.index')
                 ->with('error', 'The owner account cannot be deleted.');
-        }
-
-        if ($user->id === auth('web')->id()) {
-            return redirect()->route('admin.admin.index')
-                ->with('error', 'You cannot delete your own account.');
         }
 
         if (User::count() <= 1) {
@@ -130,8 +123,12 @@ class AdminController extends Controller
             ->with('success', 'Admin Successfully Deleted.');
     }
 
-    private function isProtected(User $target): bool
+    private function denyUnlessOwner()
     {
-        return $target->isOwner() && $target->id !== auth('web')->id();
+        if (! auth('web')->user()->isOwner()) {
+            return redirect()->route('admin.admin.index')->with('error', 'Only the owner can manage admin accounts.');
+        }
+
+        return null;
     }
 }

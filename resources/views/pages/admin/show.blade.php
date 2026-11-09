@@ -43,18 +43,19 @@
 
 
             <div class="admin-actions">
-
-                <a href="{{ route('admin.admin.edit', encrypt($user->id)) }}" class="btn btn-primary">
-                    <span class="fa fa-edit"></span>
-                    Edit
-                </a>
+                @if (auth('web')->user()->isOwner() && !$user->isOwner())
+                    <a href="{{ route('admin.admin.edit', encrypt($user->id)) }}" class="btn btn-primary">
+                        <span class="fa fa-edit"></span>
+                        Edit
+                    </a>
+                @endif
 
                 <a href="{{ route('admin.admin.index') }}" class="btn btn-secondary">
                     <span class="fa fa-times-circle"></span>
                     Cancel
                 </a>
 
-                @if (!$user->isOwner() || $user->id === auth('web')->id())
+                @if (auth('web')->user()->isOwner() && !$user->isOwner())
                     <a href="{{ route('admin.admin.edit', encrypt($user->id)) }}" class="btn btn-primary">
                         <span class="fa fa-edit"></span>
                         Edit

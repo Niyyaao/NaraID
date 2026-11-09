@@ -521,3 +521,23 @@
         justify-content: flex-start;
     }
 }
+
+/* badge role (serasi dengan tombol) */
+.badge-role {
+    display: inline-block;
+    padding: 0.35em 0.85em;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.badge-role--owner {
+    background-color: var(--nara-dark);
+    color: #fff;
+}
+
+.badge-role--admin {
+    background-color: var(--nara-pale);
+    color: var(--nara-main);
+}
