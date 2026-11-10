@@ -36,14 +36,10 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
-                            <td>
-                                <span class="badge-role {{ $user->isOwner() ? 'badge-role--owner' : 'badge-role--admin' }}">
-                                    {{ $user->isOwner() ? 'Owner' : 'Admin' }}
-                                </span>
-                            </td>
+                            <td>{{ ucfirst($user->role) }}</td>
                             <td>
                                 @php
-                                    $viewerIsOwner = auth('web')->user()->isOwner();
+                                    $Owner = auth('web')->user()->isOwner();
                                 @endphp
 
                                 <a href="{{ route('admin.admin.show', encrypt($user->id)) }}"
@@ -51,14 +47,14 @@
                                     <span class="fa fa-search"></span>
                                 </a>
 
-                                @if ($viewerIsOwner)
+                                @if ($Owner)
                                     <a href="{{ route('admin.admin.edit', encrypt($user->id)) }}"
                                         class="btn btn-link admin-action admin-action-edit p-0 mx-2">
                                         <span class="fa fa-edit"></span>
                                     </a>
                                 @endif
 
-                                @if ($viewerIsOwner && !$user->isOwner())
+                                @if ($Owner && !$user->isOwner())
                                     <a href="javascript:void(0)"
                                         onclick="handleDestroy('{{ route('admin.admin.destroy', encrypt($user->id)) }}', @js('Admin : ' . $user->name))"
                                         class="btn btn-link admin-action admin-action-delete p-0 mx-2">

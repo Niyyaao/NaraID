@@ -109,7 +109,7 @@ class OrderController extends Controller
     {
         $order = Order::findOrFail(decrypt($id));
 
-        // hanya order yang sudah cancelled yang boleh dihapus
+        // hanya order yang sudah cancelled yang bisa dihapus
         if ($order->status !== 'cancelled') {
             return redirect()
                 ->route('admin.order.index')

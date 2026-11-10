@@ -136,13 +136,13 @@ class AlbumController extends Controller
     {
         $album = Album::findOrFail(decrypt($id));
 
-        // Block deletion if the album is already used in any order
+        //eror kalo album udh ada pesanan
         if ($album->orders()->exists()) {
             return redirect()->route('admin.album.index')
                 ->with('error', 'This album cannot be deleted because it already has orders.');
         }
 
-        // Delete the image only after the check passes
+        //hapus foto albumnya
         if ($album->image && Storage::disk('public')->exists('albums/' . $album->image)) {
             Storage::disk('public')->delete('albums/' . $album->image);
         }
