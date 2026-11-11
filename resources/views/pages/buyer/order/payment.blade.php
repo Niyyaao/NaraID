@@ -29,7 +29,7 @@
 
             <div class="order-item-body">
                 <div class="order-item-title">{{ $order->album->title ?? '-' }}</div>
-                <div class="text-muted mb-1">Order #{{ $order->id }}</div>
+                <div class="text-muted mb-1">Order #{{ $order->order_code }}</div>
                 <div class="text-muted mb-3">Qty: {{ $order->qty }}</div>
 
                 <div class="order-item-total">

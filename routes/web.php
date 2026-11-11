@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', [App\Http\Controllers\LandingController::class, 'index'])->name('landing');
-// web.php
 Route::get('/catalog/{id}', [App\Http\Controllers\CatalogController::class, 'show'])->name('catalog.show');
 
 Route::get('login', [App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('login');
@@ -12,7 +11,7 @@ Route::post('login', [App\Http\Controllers\Auth\LoginController::class, 'login']
 Route::post('/admin/logout', [App\Http\Controllers\Auth\LoginController::class, 'logoutAdmin'])->name('admin.logout');
 Route::post('/buyer/logout', [App\Http\Controllers\Auth\LoginController::class, 'logoutBuyer'])->name('buyer.logout');
 
-//Registrasi pembeli
+//registrasi pembeli
 Route::get('/register', [App\Http\Controllers\Auth\Buyer\RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [App\Http\Controllers\Auth\Buyer\RegisterController::class, 'register']);
 

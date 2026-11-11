@@ -45,9 +45,14 @@ class Order extends Model
         });
 
         if ($cancelled) {
-            $this->refresh(); // supaya $this->status ikut 'cancelled'
+            $this->refresh(); // supaya order status ikut 'cancelled'
         }
 
         return $cancelled;
+    }
+
+    public function getOrderCodeAttribute(): string
+    {
+        return 'NR-' . str_pad($this->id, 5, '0', STR_PAD_LEFT);
     }
 }

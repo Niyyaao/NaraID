@@ -19,7 +19,7 @@
                     <div class="admin-form-group">
                         <label for="id" class="form-label">Order ID</label>
                         <div class="admin-form-input">
-                            <input type="text" id="id" value="{{ $order->id }}" class="form-control"
+                            <input type="text" id="id" value="{{ $order->order_code }}" class="form-control"
                                 style="background-color: transparent;" readonly>
                         </div>
                     </div>

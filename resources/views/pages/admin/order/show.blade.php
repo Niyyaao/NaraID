@@ -13,7 +13,7 @@
 
         <div class="admin-detail-row">
             <label>Order ID</label>
-            <input type="text" value="{{ $order->id }}" readonly>
+            <input type="text" value="{{ $order->order_code }}" readonly>
         </div>
 
         <div class="admin-detail-row">

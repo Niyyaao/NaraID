@@ -18,7 +18,7 @@ class OrderController extends Controller
         $status = $request->query('status');
 
         $orders = Order::with('album')
-            ->where('buyer_id', auth()->id())
+            ->where('buyer_id', auth('buyer')->id())
             ->when($status, fn($q) => $q->where('status', $status))
             ->latest()
             ->get();
@@ -35,12 +35,12 @@ class OrderController extends Controller
 
     public function show(string $id)
     {
-        $order = Order::with('album')->findOrFail(decrypt($id));
+        $order = Order::with('album')->where('buyer_id', auth('buyer')->id())->findOrFail(decrypt($id));
 
         return view('pages.buyer.order.show', compact('order'));
     }
 
-    public function createFromAlbum($id)
+    public function createFromAlbum(string $id)
     {
         $fromalbum = Album::findOrFail(decrypt($id));
 
@@ -67,7 +67,7 @@ class OrderController extends Controller
             $album->decrement('stock', $validated['qty']);
 
             return Order::create([
-                'buyer_id' => auth()->id(),
+                'buyer_id' => auth('buyer')->id(),
                 'album_id' => $album->id,
                 'qty' => $validated['qty'],
                 'total' => $album->price * $validated['qty'],
@@ -80,18 +80,18 @@ class OrderController extends Controller
             ->with('success', 'Order created successfully. Please complete your payment within 24 hours.');
     }
 
-    public function payment($id)
+    public function payment(string $id)
     {
         $order = Order::with('album')
-            ->where('buyer_id', auth()->id())
+            ->where('buyer_id', auth('buyer')->id())
             ->findOrFail(decrypt($id));
 
         return view('pages.buyer.order.payment', compact('order'));
     }
 
-    public function uploadPayment(Request $request, $id)
+    public function uploadPayment(Request $request, string $id)
     {
-        $order = Order::where('buyer_id', auth()->id())->findOrFail(decrypt($id));
+        $order = Order::where('buyer_id', auth('buyer')->id())->findOrFail(decrypt($id));
 
         // only orders that are still waiting for payment / verification can receive a proof
         if (!in_array($order->status, ['awaiting_payment', 'awaiting_verification'])) {

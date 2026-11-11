@@ -12,11 +12,13 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\User::create([
+        $owner = new \App\Models\User([
             'name' => 'yayaatmin',
             'email' => 'atminnaraid@gmail.com',
-            'password' => 'yayaatmin0'
+            'password' => 'yayaatmin0',
         ]);
+        $owner->role = 'owner';
+        $owner->save();
 
         \App\Models\User::factory()->count(4)->create();
     }

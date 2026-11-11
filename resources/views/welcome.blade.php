@@ -61,9 +61,7 @@
 
             <div class="top-row d-flex align-items-center justify-content-between">
                 <a class="logo d-flex align-items-center">
-                    <!-- Uncomment the line below if you also wish to use an image logo -->
                     <img src="{{ asset('img/logo1.png') }}" alt="NARA.ID" style="width: 150px; height: auto;">
-                    <!-- <h1 class="sitename">NARA.ID</h1> -->
                 </a>
             </div>
         </div>

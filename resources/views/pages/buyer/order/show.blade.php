@@ -33,7 +33,7 @@
     <div class="page-head">
         <div>
             <h1>Order Detail</h1>
-            <p>Order #{{ $order->id }}</p>
+            <p>Order #{{ $order->order_code }}</p>
         </div>
         <a href="{{ route('buyer.order.index') }}" class="btn-back">
             <i class="fas fa-arrow-left mr-2"></i><span>My Orders</span>
@@ -81,7 +81,8 @@
                 <div class="order-note order-note--refund">
                     <i class="fas fa-undo"></i>
                     <span>
-                        Your payment will be refunded within <strong>1x24 hours</strong>.
+                        A refund of <strong>IDR {{ number_format($order->total, 0, ',', '.') }}</strong>
+                        will be sent to the account you used for the transfer within <strong>1x24 hours</strong>.
                         If it hasn't arrived yet, please contact us at <strong>+62 856-9352-6592</strong>
                         or <strong>naraid@gmail.com</strong>.
                     </span>
@@ -111,7 +112,7 @@
                         <span><i class="fas fa-phone-alt"></i> +62 856-9352-6592</span>
                     </div>
 
-                    <small>Please show your Order ID <b>#{{ $order->id }}</b> when picking up.</small>
+                    <small>Please show your Order ID <b>#{{ $order->order_code }}</b> when picking up.</small>
                 </div>
 
                 <a href="https://www.google.com/maps/search/?api=1&query={{ urlencode('Jl. Jenderal Sudirman No. 45, Purbalingga') }}"

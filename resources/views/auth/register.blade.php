@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="regin-page">
-    <div class="container min-vh-100 d-flex align-items-center">
+    <div class="container d-flex align-items-center justify-content-center">
 
         <!-- Outer Row -->
         <div class="row justify-content-center w-100">

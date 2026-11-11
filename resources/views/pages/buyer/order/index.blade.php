@@ -63,7 +63,7 @@
                             <td>{{ $loop->iteration }}</td>
 
                             <td>
-                                <strong>#{{ $order->id }}</strong><br>
+                                <strong>#{{ $order->order_code }}</strong><br>
                                 <small class="text-muted">{{ $order->created_at->format('d M Y') }}</small>
                             </td>
 

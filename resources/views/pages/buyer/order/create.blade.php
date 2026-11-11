@@ -25,17 +25,17 @@
                             <div class="col-md-4 mb-3">
                                 <label for="buyer_name" class="small text-muted mb-1">Name</label>
                                 <input type="text" id="buyer_name" class="form-control bg-light"
-                                    value="{{ auth()->user()->name }}" readonly>
+                                    value="{{ auth('buyer')->user()->name }}" readonly>
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="buyer_email" class="small text-muted mb-1">Email</label>
                                 <input type="email" id="buyer_email" class="form-control bg-light"
-                                    value="{{ auth()->user()->email }}" readonly>
+                                    value="{{ auth('buyer')->user()->email }}" readonly>
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="buyer_phone" class="small text-muted mb-1">Phone Number</label>
                                 <input type="text" id="buyer_phone" class="form-control bg-light"
-                                    value="{{ auth()->user()->phone }}" readonly>
+                                    value="{{ auth('buyer')->user()->phone }}" readonly>
                             </div>
                         </div>
 
@@ -54,7 +54,8 @@
                                     </option>
                                     @foreach ($albums as $album)
                                         <option value="{{ $album->id }}" data-price="{{ $album->price }}"
-                                            data-stock="{{ $album->stock }}" data-title="{{ $album->title }}"
+                                            data-stock="{{ $album->stock }}" data-artist="{{ $album->artist_name }}"
+                                            data-title="{{ $album->title }}"
                                             data-image="{{ $album->image ? asset('storage/albums/' . $album->image) : '' }}"
                                             {{ $album->stock <= 0 ? 'disabled' : '' }}
                                             {{ old('album_id') == $album->id ? 'selected' : '' }}>
@@ -83,6 +84,9 @@
                             <div class="order-item-body">
                                 <div class="order-item-title" id="albumTitle">
                                     {{ isset($fromalbum) ? $fromalbum->title : 'No album selected' }}
+                                </div>
+                                <div class="small text-muted mb-1" id="albumArtist">
+                                    {{ isset($fromalbum) ? $fromalbum->artist_name : '' }}
                                 </div>
                                 <div class="order-item-stock" id="albumStock">
                                     @if (isset($fromalbum))
@@ -168,11 +172,13 @@
                         stock = parseInt(opt.dataset.stock || 0);
 
                         const titleEl = document.getElementById('albumTitle');
+                        const artistEl = document.getElementById('albumArtist');
                         const priceEl = document.getElementById('albumPrice');
                         const img = document.getElementById('albumImage');
                         const placeholder = document.getElementById('albumPlaceholder');
 
                         if (titleEl) titleEl.innerText = opt.dataset.title || 'No album selected';
+                        if (artistEl) artistEl.innerText = opt.dataset.artist || '';
                         if (priceEl) priceEl.innerText = fmt(price);
                         if (stockEl) stockEl.innerHTML = opt.value ? stockText(stock) : 'Stock: -';
 

@@ -28,7 +28,6 @@
         .password-wrapper .form-control {
             padding-right: 3rem;
             background-image: none;
-            /* hilangin ikon error bawaan Bootstrap biar gak tabrakan */
         }
 
         .toggle-password {
@@ -49,11 +48,11 @@
 
         .regin-page {
             min-height: 100vh;
+            width: 100%;
             background:
-                linear-gradient(rgba(23, 37, 54, 0.65), rgba(23, 37, 54, 0.65)),
-                url('/img/hero-bg.jpg');
-            background-size: cover;
-            background-position: center;
+                linear-gradient(rgba(0, 0, 0, 0.45),rgba(0, 0, 0, 0.45)),
+                url('/img/background.png') center center / cover no-repeat;
+            background-attachment: fixed;
         }
 
         .regin-card {
@@ -81,6 +80,7 @@
         }
 
         .regin-page .container {
+            min-height: 100vh;
             padding-top: 3rem;
             padding-bottom: 3rem;
         }
@@ -132,21 +132,21 @@
     <script src="js/sb-admin-2.min.js"></script>
 
     <script>
-    document.addEventListener('click', function (e) {
-        const btn = e.target.closest('.toggle-password');
-        if (!btn) return;
+        document.addEventListener('click', function(e) {
+            const btn = e.target.closest('.toggle-password');
+            if (!btn) return;
 
-        const input = document.getElementById(btn.dataset.target);
-        const icon = btn.querySelector('i');
-        if (!input) return;
+            const input = document.getElementById(btn.dataset.target);
+            const icon = btn.querySelector('i');
+            if (!input) return;
 
-        const isHidden = input.type === 'password';
-        input.type = isHidden ? 'text' : 'password';
-        icon.classList.toggle('fa-eye', !isHidden);
-        icon.classList.toggle('fa-eye-slash', isHidden);
-        btn.setAttribute('aria-label', isHidden ? 'Sembunyikan password' : 'Tampilkan password');
-    });
-</script>
+            const isHidden = input.type === 'password';
+            input.type = isHidden ? 'text' : 'password';
+            icon.classList.toggle('fa-eye', !isHidden);
+            icon.classList.toggle('fa-eye-slash', isHidden);
+            btn.setAttribute('aria-label', isHidden ? 'Sembunyikan password' : 'Tampilkan password');
+        });
+    </script>
 
 </body>
 

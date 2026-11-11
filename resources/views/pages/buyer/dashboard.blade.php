@@ -5,7 +5,7 @@
 @section('content')
     <!-- Hero -->
     <div class="hero-banner" style="background-image: url('{{ asset('img/hero-nara.png') }}');">
-        <h1>Welcome back, {{ auth()->user()->name }}!</h1>
+        <h1>Welcome back, {{ auth('buyer')->user()->name }}!</h1>
         <p>Ready to grab your next album? Here's what's happening on Nara.id.</p>
     </div>
 
